@@ -25,16 +25,16 @@ public class Tank {
     public final static int TANK_NORMAL_HIT = 1; //millisecond between 2 fire time
     //
     public final static float TANK_FIRE_TIME = 500; //millisecond between 2 fire time
-    public final static float TANK_VELOCITY_NORMAL = 0.5f; //do not change it
+    public final static float TANK_VELOCITY_NORMAL = 0.6f; //do not change it
     public final static float TANK_VELOCITY_SLOW = 0.15f; //do not change it
     public final static float TANK_VELOCITY_FAST = 0.6f; //do not change it
     //
     public final static float TANK_VELOCITY_SCALE_NORMAL = 1.0f;
     public final static float TANK_VELOCITY_SCALE_SLOW = 0.5f;
-    public final static float TANK_VELOCITY_SCALE_FAST = 1.6f;
+    public final static float TANK_VELOCITY_SCALE_FAST = 1.4f;
     //
-    public final static float TANK_WIDTH = 2.75f;
-    public final static float TANK_HEIGHT = 2.75f;
+    public final static float TANK_WIDTH = 2.25f;
+    public final static float TANK_HEIGHT = 2.25f;
     public final static int TANK_NUMBER_BULLETS = 10;
     //
     public int hitToDie = 1; //number of hit before die

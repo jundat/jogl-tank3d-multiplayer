@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.opengl.GLAutoDrawable;
 import myjogl.gameview.IntroView;
+import myjogl.gameview.MainGameView;
 import myjogl.tank3d.Tank3D;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;
@@ -66,7 +67,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         tank3d.canvas.addKeyListener(KeyboardState.getState());
         tank3d.frame.setTitle("Battle City");
         //--------
-        this.attach(new IntroView());
+        this.attach(new MenuView());
     }
 
     public void loadResource(GLAutoDrawable drawable) {

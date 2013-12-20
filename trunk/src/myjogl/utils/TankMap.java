@@ -275,6 +275,12 @@ public class TankMap {
 
     //only use png file
     public void LoadMap(int mapNumber) {
+        //reset all
+        listTankPosition.clear();
+        listTankAiPosition.clear();
+        listTankAiFastPosition.clear();
+        listTankAiSlowPosition.clear();
+        
         switch (mapNumber % 4) {
             case 0:
                 ttGachMen = ttGachMen1;

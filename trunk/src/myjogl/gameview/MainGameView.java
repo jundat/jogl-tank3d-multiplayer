@@ -206,7 +206,6 @@ public class MainGameView implements GameView {
         deltaBeta = DELTA_BETA;
         deltaR = DELTA_R;
         delayTime = 0;
-        cameraFo = new CameraFo(20, 0, 20, Math.toRadians(45), Math.toRadians(0), 5, 0, 1, 0);
 
         try {
             //init map
@@ -239,15 +238,28 @@ public class MainGameView implements GameView {
         } catch (Exception e) {
             System.out.println("Can not file map: MAP" + Global.level);
         }
+        
+        float mapW = TankMap.getInst().width;
+        float mapH = TankMap.getInst().height;
+        camera.Position_Camera(
+                mapW/2, 28.869976f, mapH + 0.69388f, 
+                mapW/2, 27.494007f, mapH + 0.006523f, 
+                0.0f, 1.0f, 0.0f
+        );
+        
+        cameraFo.SetPosition(
+                mapW/2, 0, mapW/2, 
+                Math.toRadians(45), Math.toRadians(0), 5, 
+                0, 1, 0
+        );
     }
 
     public void load() {
         isPause = false;
 
-        //init variable
-        camera = new Camera();
-        camera.Position_Camera(19.482517f, 28.869976f, 38.69388f, 19.481977f, 27.494007f, 38.006523f, 0.0f, 1.0f, 0.0f);
-
+        camera = new Camera(); //init position when load map
+        cameraFo = new CameraFo(1, 1, 1, Math.toRadians(45), Math.toRadians(0), 5, 0, 1, 0);
+        
         //skybox
         m_skybox = new SkyBox();
         m_skybox.Initialize(5.0f);

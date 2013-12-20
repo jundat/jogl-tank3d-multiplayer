@@ -23,8 +23,8 @@ public class Global {
     public static int score = 0; //start at score 0
     public static boolean isFullScreen = false;
     public static int FPS = 60;
-    public static int wndWidth = 1024; //1030 - 6
-    public static int wndHeight = 640; //676 - 36
+    public static int wndWidth = 1280; //1030 - 6
+    public static int wndHeight = 720; //676 - 36
     public static GLAutoDrawable drawable = null;
     
     public static Random random = new Random(System.currentTimeMillis());

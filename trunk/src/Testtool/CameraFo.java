@@ -30,6 +30,19 @@ public class CameraFo {
         upZ = _upZ;
     }
     
+    public void SetPosition(double _lookAtX, double _lookAtY, double _lookAtZ, double _alpha, double _beta, double _R, double _upX,
+            double _upY, double _upZ) {
+        lookAtX = _lookAtX;
+        lookAtY = _lookAtY;
+        lookAtZ = _lookAtZ;
+        r = _R;
+        alpha = _alpha;
+        beta = _beta;
+        upX = _upX;
+        upY = _upY;
+        upZ = _upZ;
+    }
+    
     public void Update() {
         if (alpha <= 0)
             alpha = 0.000001f;
