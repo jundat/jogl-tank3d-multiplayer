@@ -56,11 +56,11 @@ public class MainGameView implements GameView {
     private Writer writer;
     private Vector3 bossPosition;
     //
-    Point pLevel = new Point(5, 610);
-    Point pAI = new Point(5, 570);
-    Point pLife = new Point(5, 530);
-    Point pScore = new Point(820, 610);
-    Point pScoreValue = new Point(838, 570);
+    Point pLevel = new Point(5, 690);
+    Point pAI = new Point(5, 650);
+    Point pLife = new Point(5, 610);
+    Point pScore = new Point(820 + 256, 690);
+    Point pScoreValue = new Point(838 + 256, 650);
     //sound
     public Sound sBackground;
 

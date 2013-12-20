@@ -140,9 +140,9 @@ public class NextLevelView implements GameView {
         itMenu.Render();
         itRetry.Render();
         //
-        GameEngine.writer.Render("LEVEL", pGame.x, pGame.y * delta, 0.9f, 0.9f);
-        GameEngine.writer.Render("COMPLETE", pOver.x - 80, pOver.y * delta, 0.9f, 0.9f);
-        GameEngine.writer.Render("MENU", rectMenu.x + 24, (rectMenu.y + 12) * delta, 0.85f, 0.85f);
-        GameEngine.writer.Render("NEXT", rectRetry.x + 36, (rectRetry.y + 12) * delta, 0.85f, 0.85f);
+        GameEngine.writer.Render("LEVEL", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+        GameEngine.writer.Render("COMPLETE", pOver.x - 80 + 30, pOver.y * delta, 0.9f, 0.9f);
+        GameEngine.writer.Render("MENU", rectMenu.x + 56, (rectMenu.y + 16) * delta, 0.85f, 0.85f);
+        GameEngine.writer.Render("NEXT", rectRetry.x + 57, (rectRetry.y + 16) * delta, 0.85f, 0.85f);
     }
 }

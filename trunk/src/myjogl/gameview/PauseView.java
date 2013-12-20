@@ -151,8 +151,8 @@ public class PauseView implements GameView {
         itMenu.Render();
         itRetry.Render();
         //
-        GameEngine.writer.Render("PAUSE", pGame.x, pGame.y * delta, 0.9f, 0.9f);
-        GameEngine.writer.Render("MENU", rectMenu.x + 24, (rectMenu.y + 12) * delta, 0.85f, 0.85f);
-        GameEngine.writer.Render("RESUME", rectRetry.x + 16, (rectRetry.y + 12) * delta, 0.66f, 0.85f);
+        GameEngine.writer.Render("PAUSE", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+        GameEngine.writer.Render("MENU", rectMenu.x + 56, (rectMenu.y + 16) * delta, 0.85f, 0.85f);
+        GameEngine.writer.Render("RESUME", rectRetry.x + 44, (rectRetry.y + 16) * delta, 0.66f, 0.85f);
     }
 }

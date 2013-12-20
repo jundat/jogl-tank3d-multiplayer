@@ -14,7 +14,6 @@ import myjogl.Global;
 import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;
-import myjogl.utils.Writer;
 
 /**
  *
@@ -151,9 +150,9 @@ public class GameOverView implements GameView {
         itMenu.Render();
         itRetry.Render();
         //
-        GameEngine.writer.Render("GAME", pGame.x, pGame.y * delta, 0.9f, 0.9f);
-        GameEngine.writer.Render("OVER", pOver.x, pOver.y * delta, 0.9f, 0.9f);
-        GameEngine.writer.Render("MENU", rectMenu.x + 24, (rectMenu.y + 12) * delta, 0.85f, 0.85f);
-        GameEngine.writer.Render("RETRY", rectRetry.x + 18, (rectRetry.y + 12) * delta, 0.85f, 0.85f);
+        GameEngine.writer.Render("GAME", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+        GameEngine.writer.Render("OVER", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        GameEngine.writer.Render("MENU", rectMenu.x + 53, (rectMenu.y + 16) * delta, 0.85f, 0.85f);
+        GameEngine.writer.Render("RETRY", rectRetry.x + 42, (rectRetry.y + 16) * delta, 0.85f, 0.85f);
     }
 }

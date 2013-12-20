@@ -33,12 +33,13 @@ import myjogl.utils.Writer;
  */
 public class MenuView implements GameView {
 
-    Point pExit = new Point(712, 640 - 590);
-    Point pAbout = new Point(81, 640 - 590);
-    Point pPlay = new Point(382, 640 - 611);
-    Point pTop = new Point(0, 640 - 223);
+    Point pExit = new Point(890, 720 - 664);
+    Point pAbout = new Point(101, 720 - 664);
+    Point pPlay = new Point(477, 720 - 688);
+    Point pTop = new Point(0, 720 - 251);
     Point pBottom = new Point(0, 0);
-    Point pAboutBg = new Point(42, 640-514);
+    Point pAboutBg = new Point(52, 720 - 584);
+    float textScale = 0.85f * 720 / 640;
     //
     private MenuItem itPlay;
     private MenuItem itAbout;
@@ -201,12 +202,12 @@ public class MenuView implements GameView {
 
         //text
         if (isAboutState == false) {
-            GameEngine.writer.Render("ABOUT", pAbout.x + 16, pAbout.y + 12, 0.85f, 0.85f, 1.0f, 1.0f, 1.0f);
+            GameEngine.writer.Render("ABOUT", pAbout.x + 36, pAbout.y + 12, textScale, textScale, 1.0f, 1.0f, 1.0f);
         } else {
-            GameEngine.writer.Render("MENU", pAbout.x + 25, pAbout.y + 12, 0.85f, 0.85f, 1.0f, 1.0f, 1.0f);
+            GameEngine.writer.Render("MENU", pAbout.x + 40, pAbout.y + 12, textScale, textScale, 1.0f, 1.0f, 1.0f);
         }
 
-        GameEngine.writer.Render("PLAY", pPlay.x + 24, pPlay.y + 42, 1.2f, 1.2f, 1.0f, 1.0f, 1.0f);
-        GameEngine.writer.Render("EXIT", pExit.x + 46, pExit.y + 12, 0.85f, 0.85f, 1.0f, 1.0f, 1.0f);
+        GameEngine.writer.Render("PLAY", pPlay.x + 54, pPlay.y + 42, 1.2f, 1.2f, 1.0f, 1.0f, 1.0f);
+        GameEngine.writer.Render("EXIT", pExit.x + 68, pExit.y + 12, textScale, textScale, 1.0f, 1.0f, 1.0f);
     }
 }
