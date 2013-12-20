@@ -41,15 +41,15 @@ public class Sound {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
 
-            System.out.println("+ Sound: " + fileName);
+            //System.out.println("+ Sound: " + fileName);
         } catch (Exception ex) {
-            System.out.println("Can not open sound: " + fileName);
+            //System.out.println("Can not open sound: " + fileName);
         } finally {
             try {
                 audioIn.close();
                 audioIn = null;
             } catch (IOException ex) {
-                System.out.println("Can not close sound: " + fileName);
+                //System.out.println("Can not close sound: " + fileName);
             }
         }
     }
@@ -64,7 +64,7 @@ public class Sound {
     public void dispose() {
         clip.close();
         clip = null;
-        System.out.println("- Sound: " + fileName);
+        //System.out.println("- Sound: " + fileName);
     }
 
     public void play() {

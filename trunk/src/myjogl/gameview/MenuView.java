@@ -53,7 +53,7 @@ public class MenuView implements GameView {
 
     //
     public MenuView() {
-        System.out.println("Go to menu view-------------------------------------");
+        //System.out.println("Go to menu view-------------------------------------");
     }
 
     public void keyPressed(KeyEvent e) {

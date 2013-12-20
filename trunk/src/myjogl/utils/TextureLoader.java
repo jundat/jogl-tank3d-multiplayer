@@ -57,9 +57,9 @@ public class TextureLoader {
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR); //minFilter);
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR); //magFilter);
             
-            System.out.println("+ Texture: " + filename);
+            //System.out.println("+ Texture: " + filename);
         } catch (Exception exc) {
-            System.out.println("TextureLoader: Can not load resource: " + filename + "\n" + exc.getMessage());
+            //System.out.println("TextureLoader: Can not load resource: " + filename + "\n" + exc.getMessage());
             JOptionPane.showMessageDialog(null, "TextureLoader: Can not load resource: " + filename + "\n" + exc.getMessage());
         } finally {
             try {
@@ -67,7 +67,7 @@ public class TextureLoader {
                 is.close();
 
             } catch (IOException ex) {
-                System.out.println("Can not close inputstream " + filename + "\n" + ex.getMessage());
+                //System.out.println("Can not close inputstream " + filename + "\n" + ex.getMessage());
                 JOptionPane.showMessageDialog(null, "TextureLoader: Can not close inputstream resource: " + filename + "\n" + ex.getMessage());
             }
         }

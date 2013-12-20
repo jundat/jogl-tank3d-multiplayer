@@ -225,7 +225,7 @@ public class GLModel {
                         coords[0] = coordstext[1];
                         coords[1] = facecounter + "";
                         mattimings.add(coords);
-                        //System.out.println(coords[0] + ", " + coords[1]);
+                        ////System.out.println(coords[0] + ", " + coords[1]);
                     }
                 }
             }
@@ -240,10 +240,10 @@ public class GLModel {
             BigBound = new BoundSphere(MidPoint, r);
         } catch (IOException e) {
 
-            System.out.println("GLModel.loadobject(): (line 198) Failed to read file: " + br.toString());
+            //System.out.println("GLModel.loadobject(): (line 198) Failed to read file: " + br.toString());
         } catch (NumberFormatException e) {
 
-            System.out.println("GLModel.loadobject(): (line 202)Malformed OBJ file: " + br.toString() + "\r \r" + e.getMessage());
+            //System.out.println("GLModel.loadobject(): (line 202)Malformed OBJ file: " + br.toString() + "\r \r" + e.getMessage());
         }
     }
 
@@ -258,7 +258,7 @@ public class GLModel {
             is.close();
         } catch (IOException e) {
 
-            System.out.println("GLModel.loadmarterial() (line 217)Could not open file: " + refm);
+            //System.out.println("GLModel.loadmarterial() (line 217)Could not open file: " + refm);
             materials = null;
         }
     }

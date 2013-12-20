@@ -136,12 +136,12 @@ public class MtlLoader {
             Materials.add(matset);
 
         } catch (IOException e) {
-            System.out.println("MtlLoader.loadobject() line 141. Failed to read file: " + br.toString());
+            //System.out.println("MtlLoader.loadobject() line 141. Failed to read file: " + br.toString());
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            System.out.println("MtlLoader.loadobject() line 145. Malformed MTL (on line " + linecounter + "): " + br.toString() + "\r \r" + e.getMessage());
+            //System.out.println("MtlLoader.loadobject() line 145. Malformed MTL (on line " + linecounter + "): " + br.toString() + "\r \r" + e.getMessage());
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("MtlLoader.loadobject() line 148. Malformed MTL (on line " + linecounter + "): " + br.toString() + "\r \r" + e.getMessage());
+            //System.out.println("MtlLoader.loadobject() line 148. Malformed MTL (on line " + linecounter + "): " + br.toString() + "\r \r" + e.getMessage());
         }
     }
 }

@@ -37,7 +37,7 @@ public class Global {
         Iterator it = hm.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pairs = (Map.Entry) it.next();
-            System.out.println("[" + pairs.getKey().toString() + ", " + pairs.getValue().toString() + "]");
+            //System.out.println("[" + pairs.getKey().toString() + ", " + pairs.getValue().toString() + "]");
         }
     }
 

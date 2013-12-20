@@ -80,7 +80,7 @@ public class Explo extends ParticleEngine {
         m_ParticleList[index].m_Position.y = m_origin.y + rand * 1;
         rand = ((random.nextFloat() * 2) - 1);
         m_ParticleList[index].m_Position.z = m_origin.z + rand * 1;
-        System.out.println("Explo " + index + " : X : " + m_ParticleList[index].m_Position.x + "Y : " + m_ParticleList[index].m_Position.y + "Z : " + m_ParticleList[index].m_Position.z);
+        //System.out.println("Explo " + index + " : X : " + m_ParticleList[index].m_Position.x + "Y : " + m_ParticleList[index].m_Position.y + "Z : " + m_ParticleList[index].m_Position.z);
         
         
         m_ParticleList[index].m_velocity = new Vector3();

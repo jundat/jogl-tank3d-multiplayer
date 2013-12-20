@@ -55,7 +55,7 @@ public class Explosion extends ParticleEngine {
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
         } catch (IOException exc) {
-            System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+            //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
             System.exit(1);
         }
     }
@@ -66,8 +66,8 @@ public class Explosion extends ParticleEngine {
         //float rand = Math.abs((random.nextFloat() * 2) - 1);
         float rand;
 
-        //System.out.println(rand);
-        //System.out.println(rand);
+        ////System.out.println(rand);
+        ////System.out.println(rand);
         m_ParticleList[index] = new Particle();
         rand = Math.abs((random.nextFloat() * 2) - 1);
         m_ParticleList[index].life = 10.5f + rand / 2.0f;
@@ -102,7 +102,7 @@ public class Explosion extends ParticleEngine {
             m_ParticleList[index].m_velocity.z = -VECLOCITY.z - VECLOCITY_VARIATION.z * rand;
         }
         //float x1 = m_ParticleList[index].m_velocity.x;
-        //System.out.println("VelocX" + x1);
+        ////System.out.println("VelocX" + x1);
         m_ParticleList[index].m_Gravity = new Vector3();
         m_ParticleList[index].m_Gravity = GRAVITY;
         if (m_ParticleList[index].m_Position.x < 0) {

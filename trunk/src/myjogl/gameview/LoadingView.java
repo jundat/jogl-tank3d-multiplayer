@@ -32,7 +32,7 @@ public class LoadingView implements GameView {
     private Texture ttLoadingCircle;
 
     public LoadingView(GameView loadView) {
-        System.out.println("Go to loading view ---------------------------------");
+        //System.out.println("Go to loading view ---------------------------------");
         this.loadView = loadView;
     }
 

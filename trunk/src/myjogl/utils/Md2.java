@@ -72,7 +72,7 @@ public class Md2 {
             buffer = new byte[inputStr.available()];
             inputStr.read(buffer, 0, buffer.length);
         } catch (IOException ex) {
-            System.out.println("md2.Readfile.buffer.available(): can not read!");
+            //System.out.println("md2.Readfile.buffer.available(): can not read!");
             Logger.getLogger(Md2.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {

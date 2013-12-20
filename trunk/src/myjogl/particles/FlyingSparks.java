@@ -55,7 +55,7 @@ public class FlyingSparks extends ParticleEngine {
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
         } catch (IOException exc) {
-            System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+            //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
             System.exit(1);
         }
     }
@@ -79,7 +79,7 @@ public class FlyingSparks extends ParticleEngine {
         rand = ((random.nextFloat() * 2) - 1);
         m_ParticleList[index].m_Position.z = m_origin.z + rand * 12;
 
-        System.out.println("SmokeTrail " + index + " : X : " + m_ParticleList[index].m_Position.x + "Y : " + m_ParticleList[index].m_Position.y + "Z : " + m_ParticleList[index].m_Position.z);
+        //System.out.println("SmokeTrail " + index + " : X : " + m_ParticleList[index].m_Position.x + "Y : " + m_ParticleList[index].m_Position.y + "Z : " + m_ParticleList[index].m_Position.z);
         m_ParticleList[index].m_velocity = new Vector3();
 
         rand = Math.abs((random.nextFloat() * 2) - 1);

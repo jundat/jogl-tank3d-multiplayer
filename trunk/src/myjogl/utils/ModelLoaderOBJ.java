@@ -31,10 +31,10 @@ public class ModelLoaderOBJ {
             b_read1.close();
 
         } catch (Exception e) {
-            System.out.println("BuOI:ModelLoaderOBJ.LoadModel(): (line 62) LOADING ERROR" + e.getMessage());
+            //System.out.println("BuOI:ModelLoaderOBJ.LoadModel(): (line 62) LOADING ERROR" + e.getMessage());
         }
 
-        System.out.println("ModelLoaderOBJ init() done"); // ddd
+        //System.out.println("ModelLoaderOBJ init() done"); // ddd
         return model;
     }
 }

@@ -98,7 +98,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
                 //
                 scn.close();
             } catch (Exception ex) {
-                System.out.println("Can not load highscore!\n" + ex.getMessage());
+                //System.out.println("Can not load highscore!\n" + ex.getMessage());
                 Global.level = 1;
                 Global.score = 0;
             }
@@ -198,7 +198,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
             this.update(currentTime - localTime);
             this.display();
 
-            //System.out.println("FPS: " + (float)1000 / (currentTime - localTime));
+            ////System.out.println("FPS: " + (float)1000 / (currentTime - localTime));
             //tank3d.frame.setTitle("FPS: " + (float) 1000 / (currentTime - localTime));
 
             localTime = currentTime;

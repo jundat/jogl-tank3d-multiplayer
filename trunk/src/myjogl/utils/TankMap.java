@@ -352,7 +352,7 @@ public class TankMap {
             }
 
         } catch (IOException ex) {
-            System.out.println("Map.LoadMap: can not load map!");
+            //System.out.println("Map.LoadMap: can not load map!");
             Logger.getLogger(TankMap.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

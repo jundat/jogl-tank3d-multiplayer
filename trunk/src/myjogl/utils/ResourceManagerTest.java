@@ -52,7 +52,7 @@ public class ResourceManagerTest {
                 gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
             } catch (IOException exc) {
-                System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+                //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
                 System.exit(1);
             }
         }
@@ -72,7 +72,7 @@ public class ResourceManagerTest {
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
         } catch (IOException exc) {
-            System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+            //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
             System.exit(1);
         }
         // End load Smoke
@@ -94,7 +94,7 @@ public class ResourceManagerTest {
                     gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
                 } catch (IOException exc) {
-                    System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+                    //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
                     System.exit(1);
                 }
         }
@@ -115,7 +115,7 @@ public class ResourceManagerTest {
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
         } catch (IOException exc) {
-            System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+            //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
             System.exit(1);
         }
         // End load round
@@ -139,7 +139,7 @@ public class ResourceManagerTest {
                 gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
             } catch (IOException exc) {
-                System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+                //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
                 System.exit(1);
             }
         }
@@ -160,7 +160,7 @@ public class ResourceManagerTest {
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
         } catch (IOException exc) {
-            System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+            //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
             System.exit(1);
         }
         // End Load SockWave

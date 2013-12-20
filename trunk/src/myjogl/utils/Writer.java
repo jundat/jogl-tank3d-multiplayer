@@ -78,14 +78,14 @@ public class Writer {
                 ci.c = Integer.parseInt(nums[5]);
 
                 characters.put(ci.ch, ci);
-                System.out.println("Char: "
-                        + ci.ch
-                        + "," + ci.x
-                        + "," + ci.y
-                        + "," + ci.w
-                        + "," + ci.h
-                        + "," + ci.a
-                        + "," + ci.c);
+//                System.out.println("Char: "
+//                        + ci.ch
+//                        + "," + ci.x
+//                        + "," + ci.y
+//                        + "," + ci.w
+//                        + "," + ci.h
+//                        + "," + ci.a
+//                        + "," + ci.c);
             }
         }
     }

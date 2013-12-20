@@ -61,7 +61,7 @@ public class Shockwave extends ParticleEngine {
 //            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 //
 //        } catch (IOException exc) {
-//            System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
+//            //System.out.println("LoadSkin: Can not load resource: " + exc.getMessage());
 //            System.exit(1);
 //        }
     }

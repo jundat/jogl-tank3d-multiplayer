@@ -37,7 +37,7 @@ public class MainGameView implements GameView {
     public boolean isPause;
     private int numberOfLife = NUMBER_OF_LIEF;
     //tankAI
-    private int DEFAUL_LAST_TANK = 4;
+    private int DEFAUL_LAST_TANK = 10;
     private int lastTanks; //so tang con lai, chwa dwa ra
     private int currentTank; //number of tank in screen at a moment
     //
@@ -66,7 +66,7 @@ public class MainGameView implements GameView {
 
     public MainGameView() {
         super();
-        System.out.println("Go to main game!------------------------------------");
+        //System.out.println("Go to main game!------------------------------------");
     }
 
     //
@@ -236,7 +236,7 @@ public class MainGameView implements GameView {
             sBackground.setVolume(Sound.MAX_VOLUME);
             //
         } catch (Exception e) {
-            System.out.println("Can not file map: MAP" + Global.level);
+            //System.out.println("Can not file map: MAP" + Global.level);
         }
         
         float mapW = TankMap.getInst().width;
@@ -422,7 +422,7 @@ public class MainGameView implements GameView {
     private boolean checkTankCollision(Tank tank) {
         CRectangle rectTank = tank.getBound();
         if (tank.isAlive() == false) {
-            System.out.println("check collision DEAD tank @@@@@@@@@@@@@@@@@@@@@@");
+            //System.out.println("check collision DEAD tank @@@@@@@@@@@@@@@@@@@@@@");
             return false;
         }
 
@@ -482,9 +482,9 @@ public class MainGameView implements GameView {
                         boss.isAlive = false;
                         this.isPause = true;
 
-                        System.out.println("COLLISION! ");
-                        System.out.println("BULLET: " + bullet.getBound().toString());
-                        System.out.println("BOSS: " + boss.getBound().toString());
+                        //System.out.println("COLLISION! ");
+                        //System.out.println("BULLET: " + bullet.getBound().toString());
+                        //System.out.println("BOSS: " + boss.getBound().toString());
                         GameEngine.getInst().attach(new GameOverView(this));
                         return;
                     }
@@ -576,20 +576,33 @@ public class MainGameView implements GameView {
     //
     // end check collision
     //
-    private void TestParticle() {
-        Vector3 a = new Vector3(35, 0, 20);
-        float scale = 0.6f;
-        float time = 0.01f;
-        Explo shootParticle = new Explo(a, time, scale);
+    private void particleStartGame() {
+        float mapW = TankMap.getInst().width;
+        float mapH = TankMap.getInst().height;
+        
+        float d = 5;
+        
+        Vector3 a = new Vector3(d, 0, d);
+        float scale = 0.4f;
+        float time = 0.02f;
+        Explo shootParticle = new Explo(a.Clone(), time, scale);
         shootParticle.LoadingTexture();
         ParticalManager.getInstance().Add(shootParticle);
 
-        Vector3 a1 = new Vector3(5, 0, 20);
-        float scale1 = 0.6f;
-        float time1 = 0.01f;
-        Explo shootParticle1 = new Explo(a1, time1, scale1);
+        a = new Vector3(mapW - d, 0, d);
+        Explo shootParticle1 = new Explo(a.Clone(), time, scale);
         shootParticle1.LoadingTexture();
         ParticalManager.getInstance().Add(shootParticle1);
+        
+        a = new Vector3(mapW - d, 0, mapH - d);
+        Explo shootParticle2 = new Explo(a.Clone(), time, scale);
+        shootParticle2.LoadingTexture();
+        ParticalManager.getInstance().Add(shootParticle2);
+        
+        a = new Vector3(d, 0, mapH - d);
+        Explo shootParticle3 = new Explo(a.Clone(), time, scale);
+        shootParticle3.LoadingTexture();
+        ParticalManager.getInstance().Add(shootParticle3);
     }
 
     public void ParticleEntrance(Vector3 position) {
@@ -627,10 +640,10 @@ public class MainGameView implements GameView {
                 delayTime++;
                 if (delayTime > DELAY_TIME) {
                     bSliding = false;
-                    TestParticle();
+                    particleStartGame();
                 }
             }
-            System.out.println(cameraFo.r);
+            //System.out.println(cameraFo.r);
         } else {
             handleInput(dt);
 

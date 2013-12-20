@@ -39,13 +39,13 @@ public class IntroView implements GameView {
     Rectangle rectContinue = new Rectangle(700, 0, 324, 30);
 
     public IntroView() {
-        System.out.println("Go to intro view------------------------------------");
+        //System.out.println("Go to intro view------------------------------------");
     }
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            System.out.println("Sound Frame: " + sound.clip.getFramePosition());
-            System.out.println("Sound Microsecond: " + sound.clip.getMicrosecondPosition());
+            //System.out.println("Sound Frame: " + sound.clip.getFramePosition());
+            //System.out.println("Sound Microsecond: " + sound.clip.getMicrosecondPosition());
         }
     }
 

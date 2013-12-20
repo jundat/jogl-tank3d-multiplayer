@@ -39,7 +39,7 @@ public class FullscreenSetting {
         boolean isOK = gd.isFullScreenSupported();
 
         if (isOK) {
-            System.out.println("Fullscreen...init!");//ddd
+            //System.out.println("Fullscreen...init!");//ddd
 
             try {
                 gd.setFullScreenWindow(frame);
@@ -80,7 +80,7 @@ public class FullscreenSetting {
             gd = ge.getDefaultScreenDevice();
             if (gd.isFullScreenSupported()) {
                 gd.setFullScreenWindow(null);
-                System.out.println("Exit fullscreen done.... exit!");//ddd
+                //System.out.println("Exit fullscreen done.... exit!");//ddd
                 if (displayChanged) {
                     myDevice.setDisplayMode(dm_old);
                 }
@@ -90,12 +90,12 @@ public class FullscreenSetting {
     }
 
     public int getHeight() {
-        //System.out.println("dm.getHeight:"+dm.getHeight());//ddd
+        ////System.out.println("dm.getHeight:"+dm.getHeight());//ddd
         return dm.getHeight();
     }
 
     public int getWidth() {
-        //System.out.println("dm.getWidth:"+dm.getWidth());//ddd
+        ////System.out.println("dm.getWidth:"+dm.getWidth());//ddd
         return dm.getWidth();
     }
 }
