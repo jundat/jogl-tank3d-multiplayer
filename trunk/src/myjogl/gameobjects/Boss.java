@@ -30,6 +30,10 @@ public class Boss {
     private Texture tt;
     public boolean isClientBoss;    
 
+    /**
+     * Create a boss
+     * @param isClientBoss : indicate boss is your, or opponent's
+     */
     public Boss(boolean isClientBoss) {
         position = new Vector3();
         direction = CDirections.UP;

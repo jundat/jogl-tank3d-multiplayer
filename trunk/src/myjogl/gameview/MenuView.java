@@ -5,26 +5,12 @@
 package myjogl.gameview;
 
 import com.sun.opengl.util.texture.Texture;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
 import myjogl.GameEngine;
-import myjogl.GameEngine;
-import myjogl.Global;
 import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
-import myjogl.utils.Sound;
 import myjogl.utils.Writer;
 
 /**
@@ -216,27 +202,7 @@ public class MenuView implements GameView {
     }
 
     private void gotoMainGame() {
-        //pre-load main game
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_tuong0.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_tuong1.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_tuong2.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_tuong3.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_tuong4.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        //
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_men1.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_men2.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_men3.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        ResourceManager.getInst().PreLoadTexture("data/game/gach_men4.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR, GL.GL_LINEAR);
-        
-        //skybox
-        ResourceManager.getInst().PreLoadTexture("data/skybox/top.jpg", false, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_CLAMP_TO_EDGE, GL.GL_CLAMP_TO_EDGE);
-        ResourceManager.getInst().PreLoadTexture("data/skybox/bottom.jpg", false, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_CLAMP_TO_EDGE, GL.GL_CLAMP_TO_EDGE);
-        ResourceManager.getInst().PreLoadTexture("data/skybox/left.jpg", false, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_CLAMP_TO_EDGE, GL.GL_CLAMP_TO_EDGE);
-        ResourceManager.getInst().PreLoadTexture("data/skybox/right.jpg", false, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_CLAMP_TO_EDGE, GL.GL_CLAMP_TO_EDGE);
-        ResourceManager.getInst().PreLoadTexture("data/skybox/front.jpg", false, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_CLAMP_TO_EDGE, GL.GL_CLAMP_TO_EDGE);
-        ResourceManager.getInst().PreLoadTexture("data/skybox/back.jpg", false, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_CLAMP_TO_EDGE, GL.GL_CLAMP_TO_EDGE);
-
-        GameEngine.getInst().attach(new LoadingView(new MainGameView()));
+        GameEngine.getInst().attach(new ChooseModeView());
         GameEngine.getInst().detach(this);
     }
 
@@ -265,7 +231,7 @@ public class MenuView implements GameView {
             GameEngine.writer.Render("MENU", pAbout.x + 40, pAbout.y + 12, textScale, textScale, 1.0f, 1.0f, 1.0f);
         }
 
-        GameEngine.writer.Render("PLAY", pPlay.x + 54, pPlay.y + 42, 1.2f, 1.2f, 1.0f, 1.0f, 1.0f);
+        GameEngine.writer.Render("PLAY", pPlay.x + 54, pPlay.y + 58, 1.2f, 1.2f, 1.0f, 1.0f, 1.0f);
         GameEngine.writer.Render("EXIT", pExit.x + 68, pExit.y + 12, textScale, textScale, 1.0f, 1.0f, 1.0f);
     }
 }

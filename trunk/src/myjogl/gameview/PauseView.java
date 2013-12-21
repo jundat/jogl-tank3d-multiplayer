@@ -30,20 +30,19 @@ public class PauseView implements GameView {
     MenuItem itMenu;
     MenuItem itRetry;
     //
-    MainGameView mainGameView;
+    MainGameView2Offline mainGameView;
     Texture ttBg;
     //
     public static long TIME_ANIMATION = 500;
     long time = 0;
     
-    private int menuItemCounter = 0;
+    private int menuItemCounter = 1;
     private int MAX_MENU_ITEM_COUNTER = 1;
 
 
-    public PauseView(MainGameView mainGameView) {
+    public PauseView(MainGameView2Offline mainGameView) {
         this.mainGameView = mainGameView;
         mainGameView.isPause = true;
-        System.out.println("enter pause view");
     }
 
     public void keyPressed(KeyEvent e) {
@@ -161,7 +160,7 @@ public class PauseView implements GameView {
         itMenu.SetPosition(rectMenu.x, rectMenu.y);
         itRetry.SetPosition(rectRetry.x, rectRetry.y);
         
-        itMenu.setIsOver(true);
+        itRetry.setIsOver(true);
 
         //
         GameEngine.getInst().saveHighscore();

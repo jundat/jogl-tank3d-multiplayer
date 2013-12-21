@@ -11,7 +11,6 @@ import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import myjogl.GameEngine;
 import myjogl.Global;
-import myjogl.gameview.IntroView;
 import myjogl.utils.FullscreenSetting;
 import myjogl.utils.ResourceManager;
 

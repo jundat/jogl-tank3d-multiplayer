@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.opengl.GLAutoDrawable;
 import myjogl.gameview.IntroView;
-import myjogl.gameview.MainGameView;
+import myjogl.gameview.MainGameView2Offline;
 import myjogl.tank3d.Tank3D;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;

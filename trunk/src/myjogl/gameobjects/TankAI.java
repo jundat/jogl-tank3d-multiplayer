@@ -19,19 +19,16 @@ import myjogl.utils.*;
 public class TankAI extends Tank {
 
     public final static Random TANK_RANDOM = new Random(System.currentTimeMillis());
-    public final static int TANK_TIME_TO_FIRE = 2000; //5 seconds    
+    public final static float TANK_TIME_TO_FIRE = 1000; //5 seconds    
     //
     protected int id;
-    protected int timeToFire = TANK_TIME_TO_FIRE;
+    protected float timeToFire = TANK_TIME_TO_FIRE;
     protected int counterFire; //millisecond to fire
     //
     GLModel modelAI;
     GLModel modelAIFast;
     GLModel modelAISlow;
 
-    /**
-     * @param id indicate what kind of tank AI (in ID class)
-     */
     public TankAI(int id) {
         super(false);
         counterFire = 0;
@@ -54,7 +51,7 @@ public class TankAI extends Tank {
                 break;
         }
 
-        timeToFire = (int) (TANK_TIME_TO_FIRE * TANK_VELOCITY_NORMAL / velocity);
+        timeToFire = (TANK_TIME_TO_FIRE * TANK_VELOCITY_NORMAL / velocity);
     }
 
     public void reset(int id) {

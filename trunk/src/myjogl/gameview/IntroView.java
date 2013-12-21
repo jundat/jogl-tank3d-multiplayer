@@ -5,18 +5,15 @@
 package myjogl.gameview;
 
 import com.sun.opengl.util.texture.Texture;
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import javax.media.opengl.GL;
-import myjogl.*;
 import myjogl.GameEngine;
 import myjogl.Global;
 import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;
-import myjogl.utils.Writer;
 
 /**
  *

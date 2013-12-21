@@ -29,16 +29,16 @@ public class NextLevelView implements GameView {
     MenuItem itMenu;
     MenuItem itRetry;
     //
-    MainGameView mainGameView;
+    MainGameView2Offline mainGameView;
     Texture ttBg;
     //
     public static long TIME_ANIMATION = 500;
     long time = 0;
 
-    private int menuItemCounter = 0;
+    private int menuItemCounter = 1;
     private int MAX_MENU_ITEM_COUNTER = 1;
 
-    public NextLevelView(MainGameView mainGameView) {
+    public NextLevelView(MainGameView2Offline mainGameView) {
         this.mainGameView = mainGameView;
         mainGameView.isPause = true;
     }
@@ -159,7 +159,7 @@ public class NextLevelView implements GameView {
         itMenu.SetPosition(rectMenu.x, rectMenu.y);
         itRetry.SetPosition(rectRetry.x, rectRetry.y);
         
-        itMenu.setIsOver(true);
+        itRetry.setIsOver(true);
 
         //
         GameEngine.getInst().saveHighscore();

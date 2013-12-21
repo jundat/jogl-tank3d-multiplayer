@@ -30,7 +30,7 @@ public class GameOverView implements GameView {
     MenuItem itMenu;
     MenuItem itRetry;
     
-    MainGameView mainGameView;
+    MainGameView2Offline mainGameView;
     Texture ttBg;
     
     public static long TIME_ANIMATION = 500;
@@ -38,13 +38,15 @@ public class GameOverView implements GameView {
     
     private int whoLose = 0;
     
-    private int menuItemCounter = 0;
+    private int menuItemCounter = 1;
     private int MAX_MENU_ITEM_COUNTER = 1;
 
-    //whoLose = -1: single player game
-    //= 0: player lose
-    //= 1: opponent lose
-    public GameOverView(MainGameView mainGameView, int whoLose) {
+    /**
+     * 
+     * @param mainGameView: parent view
+     * @param whoLose : =-1: single player game, = 0: player lose, = 1: opponent lose
+     */
+    public GameOverView(MainGameView2Offline mainGameView, int whoLose) {
         this.mainGameView = mainGameView;
         mainGameView.isPause = true;
         
@@ -169,7 +171,7 @@ public class GameOverView implements GameView {
         itMenu.SetPosition(rectMenu.x, rectMenu.y);
         itRetry.SetPosition(rectRetry.x, rectRetry.y);
         
-        itMenu.setIsOver(true);
+        itRetry.setIsOver(true);
 
         //
         GameEngine.getInst().saveHighscore();
