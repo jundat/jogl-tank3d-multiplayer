@@ -282,11 +282,11 @@ public class MainGameView implements GameView {
 
             //playerBoss
             this.playerBossPosition = TankMap.getInst().bossPosition.Clone();
-            this.playerBoss.reset(playerBossPosition, CDirections.UP);
+            this.playerBoss.reset(playerBossPosition, CDirections.UP, playerBoss.isClientBoss);
 
             //opponentBoss
             this.opponentBossPosition = TankMap.getInst().bossAiPosition.Clone();
-            this.opponentBoss.reset(opponentBossPosition, CDirections.UP);
+            this.opponentBoss.reset(opponentBossPosition, CDirections.UP, opponentBoss.isClientBoss);
             
             //playerTank
             Vector3 v = ((Vector3) TankMap.getInst().listTankPosition.get(0)).Clone();
@@ -355,19 +355,19 @@ public class MainGameView implements GameView {
         //----------------
 
         //playerBoss
-        playerBoss = new Boss();
+        playerBoss = new Boss(true);
         playerBoss.load();
         
         //opponentBoss
-        opponentBoss = new Boss();
+        opponentBoss = new Boss(false);
         opponentBoss.load();
                 
         //playerTank
-        playerTank = new Tank();
+        playerTank = new Tank(true);
         playerTank.load();
         
         //opponentTank
-        opponentTank = new Tank();
+        opponentTank = new Tank(false);
         opponentTank.load();
 
 //        this.tankAis = new TankAI[MAX_CURRENT_AI];

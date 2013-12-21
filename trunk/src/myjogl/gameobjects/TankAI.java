@@ -5,7 +5,6 @@
 package myjogl.gameobjects;
 
 import java.util.Random;
-import javax.media.opengl.GL;
 import myjogl.Global;
 import static myjogl.gameobjects.Tank.TANK_NORMAL_HIT;
 import static myjogl.gameobjects.Tank.TANK_VELOCITY_FAST;
@@ -34,7 +33,7 @@ public class TankAI extends Tank {
      * @param id indicate what kind of tank AI (in ID class)
      */
     public TankAI(int id) {
-        super();
+        super(false);
         counterFire = 0;
         this.id = id;
 

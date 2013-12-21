@@ -24,7 +24,7 @@ public class Tank {
     public final static int TANK_FAST_HIT = 1; //millisecond between 2 fire time
     public final static int TANK_NORMAL_HIT = 1; //millisecond between 2 fire time
     //
-    public final static float TANK_FIRE_TIME = 500; //millisecond between 2 fire time
+    public final static float TANK_FIRE_TIME = 250; //millisecond between 2 fire time
     public final static float TANK_VELOCITY_NORMAL = 0.6f; //do not change it
     public final static float TANK_VELOCITY_SLOW = 0.15f; //do not change it
     public final static float TANK_VELOCITY_FAST = 0.6f; //do not change it
@@ -50,18 +50,21 @@ public class Tank {
     protected long fireTime = 0;
     GLModel model = null;
 
+    public boolean isClientPlayer = true;
+    
     //
     //init
     //
     /**
      * Init tank at default position and direction
      */
-    public Tank() {
+    public Tank(boolean isClientPlayer) {
         isAlive = true;
         position = new Vector3();
         direction = CDirections.UP;
         //
         lastPosition = position.Clone();
+        this.isClientPlayer = isClientPlayer;
     }
 
     /**
@@ -70,12 +73,13 @@ public class Tank {
      * @param pos position
      * @param dir direction in Directions.java class
      */
-    public Tank(Vector3 pos, int dir) {
+    public Tank(Vector3 pos, int dir, boolean isClientPlayer) {
         isAlive = true;
         position = new Vector3(pos);
         direction = dir;
         //
         lastPosition = position.Clone();
+        this.isClientPlayer = isClientPlayer;
     }
 
     public void load() {
@@ -86,8 +90,13 @@ public class Tank {
             bullets[i].isAlive = false; //start by false
         }
 
-        model = ModelLoaderOBJ.LoadModel("data/model/tank.obj",
-                "data/model/tank.mtl", "data/model/tank.png", Global.drawable);
+        if (isClientPlayer) {
+            model = ModelLoaderOBJ.LoadModel("data/model/tank.obj",
+                    "data/model/tank.mtl", "data/model/tank.png", Global.drawable);
+        } else {
+            model = ModelLoaderOBJ.LoadModel("data/model/tank.obj",
+                    "data/model/tank.mtl", "data/model/tankAI.png", Global.drawable);
+        }
 
         Vector3 a = getPosition().Clone();
         float scale = 0.1f;

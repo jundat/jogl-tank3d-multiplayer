@@ -28,27 +28,37 @@ public class Boss {
     public boolean isAlive;
     //
     private Texture tt;
+    public boolean isClientBoss;    
 
-    public Boss() {
+    public Boss(boolean isClientBoss) {
         position = new Vector3();
         direction = CDirections.UP;
         isAlive = true;
+        this.isClientBoss = isClientBoss;
     }
 
-    public Boss(Vector3 pos, int dir) {
+    public Boss(Vector3 pos, int dir, boolean isClientBoss) {
         position = pos.Clone();
         direction = dir;
         isAlive = true;
+        this.isClientBoss = isClientBoss;
     }
 
-    public void reset(Vector3 pos, int dir) {
+    public void reset(Vector3 pos, int dir, boolean isClientBoss) {
         position = pos.Clone();
         direction = dir;
         isAlive = true;
+        this.isClientBoss = isClientBoss;
     }
 
     public void load() {
-        tt = ResourceManager.getInst().getTexture("data/game/boss.png", false, GL.GL_REPEAT);
+        
+        if (isClientBoss) {
+            tt = ResourceManager.getInst().getTexture("data/game/boss.png", false, GL.GL_REPEAT);
+        } else {
+            tt = ResourceManager.getInst().getTexture("data/game/bossAI.png", false, GL.GL_REPEAT);
+        }
+        
 
         //
         Vector3 a = position.Clone();
