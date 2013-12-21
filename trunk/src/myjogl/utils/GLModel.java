@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
-import myjogl.Global;
 
 /**
  *

@@ -2,7 +2,6 @@ package myjogl.gameview;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import javax.media.opengl.GLAutoDrawable;
 
 /**
  * GameView class provides an interface for the game objects views.

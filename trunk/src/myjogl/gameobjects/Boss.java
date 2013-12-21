@@ -24,7 +24,6 @@ public class Boss {
     public static float BOSS_WIDTH = 3;
     public static float BOSS_HEIGHT = 3;
     private Vector3 position;
-    private int direction;
     public boolean isAlive;
     //
     private Texture tt;
@@ -36,21 +35,18 @@ public class Boss {
      */
     public Boss(boolean isClientBoss) {
         position = new Vector3();
-        direction = CDirections.UP;
         isAlive = true;
         this.isClientBoss = isClientBoss;
     }
 
     public Boss(Vector3 pos, int dir, boolean isClientBoss) {
         position = pos.Clone();
-        direction = dir;
         isAlive = true;
         this.isClientBoss = isClientBoss;
     }
 
     public void reset(Vector3 pos, int dir, boolean isClientBoss) {
         position = pos.Clone();
-        direction = dir;
         isAlive = true;
         this.isClientBoss = isClientBoss;
     }

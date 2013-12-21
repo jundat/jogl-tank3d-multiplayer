@@ -4,11 +4,9 @@
  */
 package myjogl.particles;
 
-import java.awt.Color;
 import java.util.Vector;
 import javax.media.opengl.GL;
 import myjogl.utils.Camera;
-import myjogl.utils.Writer;
 
 /**
  *

@@ -6,7 +6,6 @@ package myjogl.utils;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureData;
-import com.sun.opengl.util.texture.TextureIO;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -15,8 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
-import javax.swing.JOptionPane;
-import myjogl.utils.LittleEndianDataInputStream;
 
 /**
  *

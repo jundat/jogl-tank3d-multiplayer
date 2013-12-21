@@ -10,13 +10,8 @@
 package myjogl.particles;
 
 import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureData;
-import com.sun.opengl.util.texture.TextureIO;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
 import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
 import myjogl.utils.ResourceManagerTest;
 import myjogl.utils.Vector3;
 

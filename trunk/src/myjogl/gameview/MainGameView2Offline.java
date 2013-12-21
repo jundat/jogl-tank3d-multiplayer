@@ -9,8 +9,6 @@ import myjogl.particles.ParticalManager;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 import myjogl.*;

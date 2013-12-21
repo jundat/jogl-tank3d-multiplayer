@@ -10,7 +10,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import myjogl.GameEngine;
-import myjogl.Global;
 import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;

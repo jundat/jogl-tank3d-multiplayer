@@ -55,7 +55,7 @@ public class ChooseModeView implements GameView {
     private void ChoosePlay() {
         itPlay.setIsClick(true);
         preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView(new MainGameViewSinglePlayer()));
+        GameEngine.getInst().attach(new LoadingView(new MainGameView1Player()));
         GameEngine.getInst().detach(this);
     }
     

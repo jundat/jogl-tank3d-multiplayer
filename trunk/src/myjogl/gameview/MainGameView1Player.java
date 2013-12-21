@@ -22,7 +22,7 @@ import myjogl.particles.Explo;
  *
  * @author Jundat
  */
-public class MainGameViewSinglePlayer extends MainGameView2Offline {
+public class MainGameView1Player extends MainGameView2Offline {
 
     public final static long TIME_CREATE_AI = 1234; //millisecond
     
@@ -41,7 +41,7 @@ public class MainGameViewSinglePlayer extends MainGameView2Offline {
 //    Point pScore = new Point(820 + 256, 690);
 //    Point pScoreValue = new Point(838 + 256, 650);
 
-    public MainGameViewSinglePlayer() {
+    public MainGameView1Player() {
         super();
     }
 
