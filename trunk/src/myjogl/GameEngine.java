@@ -94,17 +94,17 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
                 Scanner scn = new Scanner(file);
                 //
                 Global.level = scn.nextInt();
-                Global.score = scn.nextInt();
+                Global.playerScore = scn.nextInt();
                 //
                 scn.close();
             } catch (Exception ex) {
                 //System.out.println("Can not load highscore!\n" + ex.getMessage());
                 Global.level = 1;
-                Global.score = 0;
+                Global.playerScore = 0;
             }
         } else {
             Global.level = 1;
-            Global.score = 0;
+            Global.playerScore = 0;
         }
     }
 
@@ -120,7 +120,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
                 FileWriter fw = new FileWriter(file);
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write(Global.level); //level
-                bw.write(Global.score); //level
+                bw.write(Global.playerScore); //level
                 bw.flush();
                 bw.close();
             } catch (IOException ex) {

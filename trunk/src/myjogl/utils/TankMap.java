@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
 import myjogl.Global;
 import myjogl.gameobjects.CRectangle;
 

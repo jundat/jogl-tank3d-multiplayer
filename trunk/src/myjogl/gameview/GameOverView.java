@@ -26,21 +26,28 @@ public class GameOverView implements GameView {
     Point pOver = new Point(230 + 300, 132 + 165);
     Rectangle rectMenu = new Rectangle(230 + 30, 130, 202, 54);
     Rectangle rectRetry = new Rectangle(230 + 305, 130, 202, 54);
-    //
+    
     MenuItem itMenu;
     MenuItem itRetry;
-    //
+    
     MainGameView mainGameView;
     Texture ttBg;
-    //
+    
     public static long TIME_ANIMATION = 500;
     long time = 0;
+    
+    int whoLose = 0;
 
-    public GameOverView(MainGameView mainGameView) {
+    //whoLose = -1: single player game
+    //= 0: player lose
+    //= 1: opponent lose
+    public GameOverView(MainGameView mainGameView, int whoLose) {
         this.mainGameView = mainGameView;
         mainGameView.isPause = true;
-        //
+        
         time = 0;
+        
+        this.whoLose = whoLose;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -149,10 +156,24 @@ public class GameOverView implements GameView {
         itRetry.SetPosition(rectRetry.x, (int) (rectRetry.y * delta));
         itMenu.Render();
         itRetry.Render();
-        //
-        GameEngine.writer.Render("GAME", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
-        GameEngine.writer.Render("OVER", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        
+        if(whoLose == -1) { //single player
+            GameEngine.writer.Render("GAME", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("OVER", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        } else if(whoLose == 0) { //player lose
+            GameEngine.writer.Render("YOU", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("LOSE :(", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        } else if(whoLose == 1) {
+            GameEngine.writer.Render("YOU", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("WIN :)", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        }
+        
         GameEngine.writer.Render("MENU", rectMenu.x + 53, (rectMenu.y + 16) * delta, 0.85f, 0.85f);
-        GameEngine.writer.Render("RETRY", rectRetry.x + 42, (rectRetry.y + 16) * delta, 0.85f, 0.85f);
+        
+        if (whoLose == -1) { //single player
+            GameEngine.writer.Render("RETRY", rectRetry.x + 42, (rectRetry.y + 16) * delta, 0.85f, 0.85f);
+        } else  if (whoLose == 0 || whoLose == 1) {
+            GameEngine.writer.Render("PLAY", rectRetry.x + 42, (rectRetry.y + 16) * delta, 0.85f, 0.85f);
+        }
     }
 }

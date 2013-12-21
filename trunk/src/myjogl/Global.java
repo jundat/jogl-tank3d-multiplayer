@@ -20,7 +20,8 @@ public class Global {
 
     public static String highscorefile = "highscore.data";
     public static int level = 1; //start at level 1
-    public static int score = 0; //start at score 0
+    public static int playerScore = 0; //start at score 0
+    public static int opponentScore = 0; //start at score 0
     public static boolean isFullScreen = false;
     public static int FPS = 60;
     public static int wndWidth = 1280; //1030 - 6
