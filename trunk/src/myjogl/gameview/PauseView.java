@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import myjogl.GameEngine;
+import myjogl.Global;
 import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;
@@ -34,33 +35,71 @@ public class PauseView implements GameView {
     //
     public static long TIME_ANIMATION = 500;
     long time = 0;
+    
+    private int menuItemCounter = 0;
+    private int MAX_MENU_ITEM_COUNTER = 1;
+
 
     public PauseView(MainGameView mainGameView) {
         this.mainGameView = mainGameView;
         mainGameView.isPause = true;
+        System.out.println("enter pause view");
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (itRetry.isClicked == false) {
-                itRetry.setIsClick(true);
-                GameEngine.sClick.play();
-                //
-                mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
-                mainGameView.isPause = false;
-                GameEngine.getInst().detach(this);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            itMenu.setIsClick(true);
-            GameEngine.sClick.play();
-            //
-            GameEngine.getInst().attach(new MenuView());
-            GameEngine.getInst().detach(mainGameView);
-            GameEngine.getInst().detach(this);
-        }
     }
 
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {        
+        if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            GameEngine.sClick.play();
+            switch(menuItemCounter)
+            {
+                case 0:
+                    itMenu.setIsClick(true);
+                    GameEngine.sClick.play();
+                    GameEngine.getInst().attach(new MenuView());
+                    GameEngine.getInst().detach(mainGameView);
+                    GameEngine.getInst().detach(this);
+                    break;
+
+                case 1:
+                    if (itRetry.isClicked == false) {
+                        itRetry.setIsClick(true);
+                        GameEngine.sClick.play();
+                        //
+                        mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
+                        mainGameView.isPause = false;
+                        GameEngine.getInst().detach(this);
+                    }
+                    break;
+            }
+        }       
+        
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+            GameEngine.sMouseMove.play(false);
+            menuItemCounter--;
+            menuItemCounter = (menuItemCounter < 0) ? 0 : menuItemCounter;
+        }
+        
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+            GameEngine.sMouseMove.play(false);
+            menuItemCounter++;
+            menuItemCounter = (menuItemCounter > MAX_MENU_ITEM_COUNTER) ? MAX_MENU_ITEM_COUNTER : menuItemCounter;
+        }
+        
+        itMenu.setIsOver(false);
+        itRetry.setIsOver(false);
+        
+        switch(menuItemCounter)
+        {
+            case 0:
+                itMenu.setIsOver(true);
+                break;
+                
+            case 1:
+                itRetry.setIsOver(true);
+                break;
+        }
     }
 
     public void pointerPressed(MouseEvent e) {
@@ -121,6 +160,8 @@ public class PauseView implements GameView {
 
         itMenu.SetPosition(rectMenu.x, rectMenu.y);
         itRetry.SetPosition(rectRetry.x, rectRetry.y);
+        
+        itMenu.setIsOver(true);
 
         //
         GameEngine.getInst().saveHighscore();

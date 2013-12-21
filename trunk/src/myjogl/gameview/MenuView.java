@@ -50,6 +50,9 @@ public class MenuView implements GameView {
     Texture ttBottom;
     Texture ttAbout;
     private boolean isAboutState = false;
+    
+    private int menuItemCounter = 1;
+    private int MAX_MENU_ITEM_COUNTER = 2;
 
     //
     public MenuView() {
@@ -57,12 +60,65 @@ public class MenuView implements GameView {
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            gotoMainGame();
-        }
     }
 
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            GameEngine.sClick.play();
+            switch(menuItemCounter)
+            {
+                case 0:
+                    itAbout.setIsClick(false);
+                    isAboutState = !isAboutState;
+                    break;
+
+                case 1:
+                    gotoMainGame();
+                    break;
+
+                case 2:
+                    itExit.setIsClick(false);
+                    GameEngine.getInst().exit();
+                    break;
+            }
+        }
+        
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            GameEngine.sClick.play();
+            itExit.setIsOver(true);
+            GameEngine.getInst().exit();
+        }
+        
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+            GameEngine.sMouseMove.play(false);
+            menuItemCounter--;
+            menuItemCounter = (menuItemCounter < 0) ? 0 : menuItemCounter;
+        }
+        
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+            GameEngine.sMouseMove.play(false);
+            menuItemCounter++;
+            menuItemCounter = (menuItemCounter > MAX_MENU_ITEM_COUNTER) ? MAX_MENU_ITEM_COUNTER : menuItemCounter;
+        }
+        
+        itAbout.setIsOver(false);
+        itPlay.setIsOver(false);
+        itExit.setIsOver(false);
+        
+        switch(menuItemCounter)
+        {
+            case 0:
+                itAbout.setIsOver(true);
+                break;
+                
+            case 1:
+                itPlay.setIsOver(true);
+                break;
+                
+            case 2:
+                itExit.setIsOver(true);
+                break;
+        }
     }
 
     public void pointerPressed(MouseEvent e) {
@@ -150,7 +206,9 @@ public class MenuView implements GameView {
         itPlay.SetPosition(pPlay);
         itAbout.SetPosition(pAbout);
         itExit.SetPosition(pExit);
-
+        
+        itPlay.setIsOver(true);
+        
         Writer writer = new Writer("data/font/Motorwerk_80.fnt");
     }
 

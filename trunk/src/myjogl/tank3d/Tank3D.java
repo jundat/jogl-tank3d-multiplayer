@@ -89,7 +89,7 @@ public class Tank3D implements GLEventListener {
         Global.drawable = drawable;
 
         GL gl = drawable.getGL();
-        System.err.println("INIT GL IS: " + gl.getClass().getName());
+        //System.out.println("INIT GL IS: " + gl.getClass().getName());
 
         // Enable VSync
         //gl.setSwapInterval(1);

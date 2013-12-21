@@ -7,10 +7,8 @@ package myjogl.gameview;
 import com.sun.opengl.util.texture.Texture;
 import java.awt.Point;
 import java.awt.Rectangle;
-import javax.media.opengl.GL;
 import javax.swing.JOptionPane;
 import myjogl.utils.Renderer;
-import myjogl.utils.ResourceManager;
 
 /**
  *

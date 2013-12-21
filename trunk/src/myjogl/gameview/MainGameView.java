@@ -143,7 +143,8 @@ public class MainGameView implements GameView {
         }
 
         //common
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE && bSliding == false) {
+            GameEngine.sClick.play();
             this.isPause = true;
             GameEngine.getInst().attach(new PauseView(this));
         }
@@ -462,6 +463,7 @@ public class MainGameView implements GameView {
     //
     private void checkPlayerLose() {
         if (playerLife <= 0) { //player lose
+            GameEngine.sFire.clone().play();
             GameEngine.getInst().attach(new GameOverView(this, 0));
         } else { // reset new life
 
@@ -493,6 +495,7 @@ public class MainGameView implements GameView {
     
     private void checkOpponentLose() {
         if (opponentLife <= 0) { //opponent lose
+            GameEngine.sFire.clone().play();
             GameEngine.getInst().attach(new GameOverView(this, 1));
         } else { // reset new life
 
@@ -524,6 +527,7 @@ public class MainGameView implements GameView {
 
 //    private void checkLevelComplete() {
 //        if (lastTanks <= 0 && currentTank <= 0) { //complete
+//            GameEngine.sFire.clone().play();
 //            GameEngine.getInst().attach(new NextLevelView(this));
 //        }
 //    }
@@ -601,6 +605,7 @@ public class MainGameView implements GameView {
                         //System.out.println("COLLISION! ");
                         //System.out.println("BULLET: " + bullet.getBound().toString());
                         //System.out.println("BOSS: " + boss.getBound().toString());
+                        GameEngine.sFire.clone().play();
                         GameEngine.getInst().attach(new GameOverView(this, 0));
                         return;
                     }
@@ -617,6 +622,7 @@ public class MainGameView implements GameView {
                         //System.out.println("COLLISION! ");
                         //System.out.println("BULLET: " + bullet.getBound().toString());
                         //System.out.println("BOSS: " + boss.getBound().toString());
+                        GameEngine.sFire.clone().play();
                         GameEngine.getInst().attach(new GameOverView(this, 1));
                         return;
                     }
@@ -691,6 +697,7 @@ public class MainGameView implements GameView {
                         //System.out.println("COLLISION! ");
                         //System.out.println("BULLET: " + bullet.getBound().toString());
                         //System.out.println("BOSS: " + boss.getBound().toString());
+                        GameEngine.sFire.clone().play();
                         GameEngine.getInst().attach(new GameOverView(this, 0));
                         return;
                     }
@@ -707,6 +714,7 @@ public class MainGameView implements GameView {
                         //System.out.println("COLLISION! ");
                         //System.out.println("BULLET: " + bullet.getBound().toString());
                         //System.out.println("BOSS: " + boss.getBound().toString());
+                        GameEngine.sFire.clone().play();
                         GameEngine.getInst().attach(new GameOverView(this, 1));
                         return;
                     }
