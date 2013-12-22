@@ -31,7 +31,7 @@ public class Tank {
     //
     public final static float TANK_VELOCITY_SCALE_NORMAL = 1.0f;
     public final static float TANK_VELOCITY_SCALE_SLOW = 0.5f;
-    public final static float TANK_VELOCITY_SCALE_FAST = 1.5f;
+    public final static float TANK_VELOCITY_SCALE_FAST = 2.0f;
     //
     public final static float TANK_WIDTH = 2.25f;
     public final static float TANK_HEIGHT = 2.25f;

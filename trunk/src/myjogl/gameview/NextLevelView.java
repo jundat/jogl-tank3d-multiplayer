@@ -34,6 +34,7 @@ public class NextLevelView implements GameView {
     //
     public static long TIME_ANIMATION = 500;
     long time = 0;
+    boolean isSliding = true;
 
     private int menuItemCounter = 1;
     private int MAX_MENU_ITEM_COUNTER = 1;
@@ -47,6 +48,10 @@ public class NextLevelView implements GameView {
     }
 
     public void keyReleased(KeyEvent e) {
+        if (isSliding == false) {
+            return;
+        }
+        
         if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SHIFT) {
             GameEngine.sClick.play();
             switch(menuItemCounter)
@@ -101,6 +106,10 @@ public class NextLevelView implements GameView {
     }
 
     public void pointerPressed(MouseEvent e) {
+        if (isSliding == false) {
+            return;
+        }
+        
         if (itMenu.contains(e.getX(), e.getY())) {
             itMenu.setIsClick(true);
         }
@@ -111,6 +120,10 @@ public class NextLevelView implements GameView {
     }
 
     public void pointerMoved(MouseEvent e) {
+        if (isSliding == false) {
+            return;
+        }
+        
         if (itMenu.contains(e.getX(), e.getY())) {
             if (itMenu.isOver == false) {
                 itMenu.setIsOver(true);
@@ -131,6 +144,10 @@ public class NextLevelView implements GameView {
     }
 
     public void pointerReleased(MouseEvent e) {
+        if (isSliding == false) {
+            return;
+        }
+        
         if (itMenu.contains(e.getX(), e.getY())) { //menu
             itMenu.setIsClick(true);
             GameEngine.sClick.play();
@@ -177,6 +194,9 @@ public class NextLevelView implements GameView {
         float delta = 1.0f;
         if (time <= TIME_ANIMATION) {
             delta = (float) time / (float) TIME_ANIMATION;
+            if (time > TIME_ANIMATION) {
+                isSliding = false;
+            }
         }
 
         Renderer.Render(ttBg, pBg.x, pBg.y * delta);

@@ -1,7 +1,6 @@
 package myjogl;
 
-import myjogl.gameview.GameView;
-import myjogl.gameview.MenuView;
+import myjogl.gameview.*;
 import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.media.opengl.GLAutoDrawable;
+import myjogl.gameview.IntroView;
 import myjogl.tank3d.Tank3D;
 import myjogl.utils.ResourceManager;
 import myjogl.utils.Sound;
@@ -58,7 +58,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         tank3d.canvas.addKeyListener(KeyboardState.getState());
         tank3d.frame.setTitle("Battle City");
         //--------
-        this.attach(new MenuView());
+        this.attach(new ChooseModeView());
     }
 
     public void loadResource(GLAutoDrawable drawable) {
@@ -157,6 +157,8 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
             GameView view = (GameView) o;
             view.update(time);
         }
+        
+        System.out.println("FPS: " + 1000.0f/time);
     }
 
     public void run(GLAutoDrawable drawable) {

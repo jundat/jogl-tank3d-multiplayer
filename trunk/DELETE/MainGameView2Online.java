@@ -20,49 +20,49 @@ import myjogl.particles.Explo;
  *
  * @author Jundat
  */
-public class MainGameView2Offline implements GameView {
+public class MainGameView2Online extends MainGameView2Offline {
 
-    //sliding...
-    public final static int SCORE_DELTA = 10;
-    public final static int NUMBER_OF_LIEF = 5;
-    public final static int DELAY_TIME = 0;
-    public final static float DELTA_BETA = 0.0513f;
-    public final static float DELTA_R = 0.25f;
-    //
-    public boolean isPause;    
-    public int playerLife = NUMBER_OF_LIEF;
-    public int opponentLife = NUMBER_OF_LIEF;
-    
-    public Tank playerTank;
-    public Tank opponentTank;
-    
-    public Boss playerBoss;
-    public Boss opponentBoss;
-    public Vector3 playerBossPosition;
-    public Vector3 opponentBossPosition;
-    
-    //
-    public SkyBox m_skybox;
-    public Camera camera;
-    public CameraFo cameraFo;
-    public boolean bSliding = true;
-    public float deltaBeta = DELTA_BETA;
-    public float deltaR = DELTA_R;
-    public int delayTime = 0;
-    public Writer writer;
-    
-    public Point pLevel = new Point(5, 690);
-    public Point pAI = new Point(5, 650);
-    public Point pLife = new Point(5, 610);
-    public Point pScore = new Point(820 + 256, 690);
-    public Point pScoreValue = new Point(838 + 256, 650);
-    
-    public Sound sBackground;
+//    //sliding...
+//    public final static int SCORE_DELTA = 10;
+//    public final static int NUMBER_OF_LIEF = 5;
+//    public final static int DELAY_TIME = 0;
+//    public final static float DELTA_BETA = 0.0513f;
+//    public final static float DELTA_R = 0.25f;
+//    
+//    public boolean isPause;    
+//    public int playerLife = NUMBER_OF_LIEF;
+//    public int opponentLife = NUMBER_OF_LIEF;
+//    
+//    public Tank playerTank;
+//    public Tank opponentTank;
+//    
+//    public Boss playerBoss;
+//    public Boss opponentBoss;
+//    public Vector3 playerBossPosition;
+//    public Vector3 opponentBossPosition;
+//    
+//    public SkyBox m_skybox;
+//    public Camera camera;
+//    public CameraFo cameraFo;
+//    public boolean bSliding = true;
+//    public float deltaBeta = DELTA_BETA;
+//    public float deltaR = DELTA_R;
+//    public int delayTime = 0;
+//    public Writer writer;
+//    
+//    public Point pLevel = new Point(5, 690);
+//    public Point pAI = new Point(5, 650);
+//    public Point pLife = new Point(5, 610);
+//    public Point pScore = new Point(820 + 256, 690);
+//    public Point pScoreValue = new Point(838 + 256, 650);
+//    
+//    public Sound sBackground;
 
-    public MainGameView2Offline() {
+    public MainGameView2Online() {
         super();
     }
 
+    @Override
     public void opponentTankFire() {
         if (opponentTank.isAlive()) {
             if (opponentTank.fire()) {
@@ -72,6 +72,7 @@ public class MainGameView2Offline implements GameView {
         }
     }
     
+    @Override
     public void opponentHandleInput(long dt) {
         KeyboardState state = KeyboardState.getState();
         
@@ -110,9 +111,11 @@ public class MainGameView2Offline implements GameView {
         }
     }
    
+    @Override
     public void keyPressed(KeyEvent e) {
     }
 
+    @Override
     public void keyReleased(KeyEvent e) {
         if (isPause) {
             return;
@@ -141,15 +144,19 @@ public class MainGameView2Offline implements GameView {
         }
     }
 
+    @Override
     public void pointerPressed(MouseEvent e) {
     }
 
+    @Override
     public void pointerMoved(MouseEvent e) {
     }
 
+    @Override
     public void pointerReleased(MouseEvent e) {
     }
 
+    @Override
     public void handleInput(long dt) {
         if (isPause) {
             return;
@@ -194,6 +201,7 @@ public class MainGameView2Offline implements GameView {
 
     }
 
+    @Override
     public void loadLevel(int level) {
         Global.level = level;
         bSliding = true;
@@ -243,6 +251,7 @@ public class MainGameView2Offline implements GameView {
         );
     }
 
+    @Override
     public void load() {
         isPause = false;
 
@@ -284,10 +293,12 @@ public class MainGameView2Offline implements GameView {
         this.loadLevel(Global.level); //start at Global.level 0
     }
 
+    @Override
     public void unload() {
         GameEngine.getInst().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
+    @Override
     public void checkPlayerLose() {
         if (playerLife <= 0) { //player lose
             GameEngine.sFire.clone().play();
@@ -314,6 +325,7 @@ public class MainGameView2Offline implements GameView {
         }
     }
     
+    @Override
     public void checkOpponentLose() {
         if (opponentLife <= 0) { //opponent lose
             GameEngine.sFire.clone().play();
@@ -343,6 +355,7 @@ public class MainGameView2Offline implements GameView {
         }
     }
 
+    @Override
     public boolean checkTankCollision(Tank tank) {
         CRectangle rectTank = tank.getBound();
         if (tank.isAlive() == false) {
@@ -377,6 +390,7 @@ public class MainGameView2Offline implements GameView {
         return false;
     }
 
+    @Override
     public void checkBulletCollision() {
         //player's Bullets
         for (int i = 0; i < Tank.TANK_NUMBER_BULLETS; i++) {
@@ -505,6 +519,7 @@ public class MainGameView2Offline implements GameView {
         }
     }
 
+    @Override
     public void particleStartGame() {
         float mapW = TankMap.getInst().width;
         float mapH = TankMap.getInst().height;
@@ -534,6 +549,7 @@ public class MainGameView2Offline implements GameView {
         ParticalManager.getInstance().Add(shootParticle3);
     }
 
+    @Override
     public void particleNewTank(Vector3 position) {
         float scale = 0.4f;
         float time = 0.01f;
@@ -542,6 +558,7 @@ public class MainGameView2Offline implements GameView {
         ParticalManager.getInstance().Add(shootParticle);
     }
 
+    @Override
     public void update(long dt) {
         if (isPause) {
             return;
@@ -577,6 +594,7 @@ public class MainGameView2Offline implements GameView {
         ParticalManager.getInstance().Update();
     }
 
+    @Override
     public void display() {
         //
         GL gl = Global.drawable.getGL();
@@ -613,8 +631,8 @@ public class MainGameView2Offline implements GameView {
         float scale = 0.7f;
         //writer.Render("LEVEL  " + Global.level, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
         //writer.Render("AI  " + lastTanks, pAI.x, pAI.y, scale, scale, 1, 1, 1);
-        writer.Render("LIFE " + playerLife, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
-        writer.Render("LIFE " + opponentLife, pScore.x, pScore.y, scale, scale, 1, 1, 1);
-        //writer.Render("" + Global.playerScore, pScoreValue.x, pScoreValue.y, scale, scale, 1, 1, 1);
+        writer.Render("LIFE " + playerLife, pLife.x, pLife.y, scale, scale, 1, 1, 1);
+        writer.Render("SCORE", pScore.x, pScore.y, scale, scale, 1, 1, 1);
+        writer.Render("" + Global.playerScore, pScoreValue.x, pScoreValue.y, scale, scale, 1, 1, 1);
     }
 }

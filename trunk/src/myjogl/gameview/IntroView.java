@@ -48,6 +48,7 @@ public class IntroView implements GameView {
 
     public void keyReleased(KeyEvent e) {
         if (sound.clip.getMicrosecondPosition() >= endLight1) {
+            GameEngine.sClick.play();
             GameEngine.getInst().attach(new MenuView());
             GameEngine.getInst().detach(this);
         }
@@ -126,7 +127,7 @@ public class IntroView implements GameView {
         Renderer.Render(ttLogo, x, y, w, h);
 
         if (sound.clip.getMicrosecondPosition() >= endLight1) {
-            GameEngine.writer.Render("click here to continue...", 700, 10, 0.35f, 0.35f, 0.6f, 0.5f, 0.5f);
+            GameEngine.writer.Render("press any key to continue...", 700, 10, 0.35f, 0.35f, 0.6f, 0.5f, 0.5f);
         }
     }
 }

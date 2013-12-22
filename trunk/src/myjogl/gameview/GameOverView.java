@@ -35,6 +35,7 @@ public class GameOverView implements GameView {
     
     public static long TIME_ANIMATION = 500;
     long time = 0;
+    boolean isSliding = true;
     
     private int whoLose = 0;
     
@@ -143,6 +144,10 @@ public class GameOverView implements GameView {
     }
 
     public void pointerReleased(MouseEvent e) {
+        if (isSliding == false) {
+            return;
+        }
+        
         if (itMenu.contains(e.getX(), e.getY())) { //menu
             itMenu.setIsClick(true);
             GameEngine.sClick.play();
@@ -196,6 +201,9 @@ public class GameOverView implements GameView {
         float delta = 1.0f;
         if (time <= TIME_ANIMATION) {
             delta = (float) time / (float) TIME_ANIMATION;
+            if (delta > TIME_ANIMATION) {
+                isSliding = false;
+            }
         }
 
         Renderer.Render(ttBg, pBg.x, pBg.y * delta);
@@ -209,11 +217,11 @@ public class GameOverView implements GameView {
             GameEngine.writer.Render("GAME", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
             GameEngine.writer.Render("OVER", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
         } else if(whoLose == 0) { //player lose
-            GameEngine.writer.Render("YOU", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
-            GameEngine.writer.Render("LOSE :(", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("RIGHT >>", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("WIN :D", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
         } else if(whoLose == 1) {
-            GameEngine.writer.Render("YOU", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
-            GameEngine.writer.Render("WIN :)", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("<< LEFT", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
+            GameEngine.writer.Render("WIN :D", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
         }
         
         GameEngine.writer.Render("MENU", rectMenu.x + 53, (rectMenu.y + 16) * delta, 0.85f, 0.85f);

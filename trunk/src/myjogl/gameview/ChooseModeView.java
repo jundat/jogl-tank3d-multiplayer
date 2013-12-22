@@ -48,21 +48,21 @@ public class ChooseModeView implements GameView {
     private void ChooseAbout() {
         itAbout.setIsClick(false);
         preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView(new MainGameView2Offline()));
+        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Offline()));
         GameEngine.getInst().detach(this);
     }
     
     private void ChoosePlay() {
         itPlay.setIsClick(true);
         preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView(new MainGameView1Player()));
+        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView1Player()));
         GameEngine.getInst().detach(this);
     }
     
     private void ChooseExit() {
         itExit.setIsClick(false);
         preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView(new MainGameView2Online()));
+        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Online()));
         GameEngine.getInst().detach(this);
     }
     
