@@ -11,6 +11,6 @@ package myjogl.tank3d;
 public class Main {
     
     public static void main(String[] args) {
-        new Tank3D();
+        Tank3D tank3D = new Tank3D();
     }
 }

@@ -23,6 +23,12 @@ public class Renderer {
     }
 
     public static void Render(Texture tt, float x, float y, float w, float h) {
+        
+        x *= Global.scaleFactorX;
+        y *= Global.scaleFactorY;
+        w *= Global.scaleFactorX;
+        h *= Global.scaleFactorY;
+        
         GL gl = Global.drawable.getGL();
         GLU glu = new GLU();
         gl.glMatrixMode(GL.GL_PROJECTION);
@@ -73,6 +79,13 @@ public class Renderer {
     
     public static void Render(Texture tt, float sx, float sy, float sw, float sh,
             float dx, float dy, float dw, float dh) {
+        
+        dx *= Global.scaleFactorX;
+        dy *= Global.scaleFactorY;
+        dw *= Global.scaleFactorX;
+        dh *= Global.scaleFactorY;
+        
+        
         float width = tt.getWidth();
         float height = tt.getHeight();
         
@@ -134,6 +147,12 @@ public class Renderer {
     }
 
     public static void Render(Texture tt, float x, float y, float w, float h, float rotate) {
+        
+        x *= Global.scaleFactorX;
+        y *= Global.scaleFactorY;
+        w *= Global.scaleFactorX;
+        h *= Global.scaleFactorY;
+        
         GL gl = Global.drawable.getGL();
         GLU glu = new GLU();
         gl.glMatrixMode(GL.GL_PROJECTION);

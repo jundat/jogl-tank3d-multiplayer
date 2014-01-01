@@ -8,6 +8,7 @@ import com.sun.opengl.util.texture.Texture;
 import java.awt.Point;
 import java.awt.Rectangle;
 import javax.swing.JOptionPane;
+import myjogl.Global;
 import myjogl.utils.Renderer;
 
 /**
@@ -44,16 +45,7 @@ public class MenuItem {
     }
 
     public void SetPosition(int x, int y) {
-        rect.x = x;
-        rect.y = y;
-
-        if (ttNormal != null) {
-            rect.width = this.ttNormal.getWidth();
-            rect.height = this.ttNormal.getHeight();
-        } else if (ttClick != null) {
-            rect.width = this.ttClick.getWidth();
-            rect.height = this.ttClick.getHeight();
-        }
+        SetPosition(new Point(x, y));
     }
 
     public void Render() {
@@ -74,6 +66,10 @@ public class MenuItem {
 
     //
     public boolean contains(int x, int y) {
-        return rect.contains(x, y);
+        Rectangle newrect = new Rectangle((int)(rect.x * Global.scaleFactorX), 
+                (int)(rect.y * Global.scaleFactorY), 
+                (int)(rect.width * Global.scaleFactorX), 
+                (int)(rect.height * Global.scaleFactorY));
+        return newrect.contains(x, y);
     }
 }

@@ -227,32 +227,56 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * Translate to OpenGL coordinate
+     * Translated to OpenGL coordinate
      *
      * @param e
      */
     public void mousePressed(MouseEvent e) {
         if (!this.views.isEmpty()) {
             GameView view = (GameView) this.views.get(this.views.size() - 1);
-            int dy = Global.wndHeight - e.getY();
-            int dyy = dy - e.getY();
-            e.translatePoint(0, dyy);
-            view.pointerPressed(e);
+//            int dy = Global.wndHeight - 2 * e.getY();
+//            e.translatePoint(0, dy);
+//            view.pointerPressed(e);
+            
+            MouseEvent newEvent = new MouseEvent(
+                tank3d.canvas,
+                e.getID(), 
+                e.getWhen(), 
+                e.getModifiers(), 
+                e.getX(),
+                Global.wndHeight - e.getY(), 
+                e.getClickCount(), 
+                e.isPopupTrigger(),
+                e.getButton());
+            
+            view.pointerPressed(newEvent);
         }
     }
 
     /**
-     * Translate to OpenGL coordinate
+     * Translated to OpenGL coordinate
      *
      * @param e
      */
     public void mouseReleased(MouseEvent e) {
         if (!this.views.isEmpty()) {
             GameView view = (GameView) this.views.get(this.views.size() - 1);
-            int dy = Global.wndHeight - e.getY();
-            int dyy = dy - e.getY();
-            e.translatePoint(0, dyy);
-            view.pointerReleased(e);
+//            int dy = Global.wndHeight - 2 * e.getY();
+//            e.translatePoint(0, dy);
+//            view.pointerReleased(e);
+            
+            MouseEvent newEvent = new MouseEvent(
+                tank3d.canvas,
+                e.getID(), 
+                e.getWhen(), 
+                e.getModifiers(), 
+                e.getX(),
+                Global.wndHeight - e.getY(), 
+                e.getClickCount(), 
+                e.isPopupTrigger(),
+                e.getButton());
+            
+            view.pointerReleased(newEvent);            
         }
     }
 
@@ -266,17 +290,28 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
     }
 
     /**
-     * Translate to OpenGL coordinate
+     * Translated to OpenGL coordinate
      *
      * @param e
      */
     public void mouseMoved(MouseEvent e) {
         if (!this.views.isEmpty()) {
             GameView view = (GameView) this.views.get(this.views.size() - 1);
-            int dy = Global.wndHeight - e.getY();
-            int dyy = dy - e.getY();
-            e.translatePoint(0, dyy);
-            view.pointerMoved(e);
+//            int dy = Global.wndHeight - 2 * e.getY();
+//            e.translatePoint(0, dy);
+//            view.pointerMoved(e);
+            
+            MouseEvent newEvent = new MouseEvent(
+                    tank3d.canvas,
+                    e.getID(), 
+                    e.getWhen(), 
+                    e.getModifiers(), 
+                    e.getX(),
+                    Global.wndHeight - e.getY(), 
+                    e.getClickCount(), 
+                    e.isPopupTrigger(),
+                    e.getButton());
+            view.pointerMoved(newEvent);
         }
     }
 

@@ -71,10 +71,10 @@ public class LoadingView implements GameView {
     }
 
     public void display() {
-        Renderer.Render(ttLoadingCircle, 
-                Global.wndWidth / 2 - ttLoadingCircle.getWidth() /2, 
-                Global.wndHeight / 2 - ttLoadingCircle.getHeight() /2, 
-                ttLoadingCircle.getWidth(), 
+        Renderer.Render(ttLoadingCircle,
+                Global.designWidth / 2 - ttLoadingCircle.getWidth() / 2, 
+                Global.designHeight / 2 - ttLoadingCircle.getHeight() / 2, 
+                ttLoadingCircle.getWidth(),
                 ttLoadingCircle.getHeight(), 
                 rotate);
 

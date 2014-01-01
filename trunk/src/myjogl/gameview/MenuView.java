@@ -194,8 +194,6 @@ public class MenuView implements GameView {
         itExit.SetPosition(pExit);
         
         itPlay.setIsOver(true);
-        
-        Writer writer = new Writer("data/font/Motorwerk_80.fnt");
     }
 
     public void unload() {
