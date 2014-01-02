@@ -37,12 +37,6 @@ public class MainGameView1Player extends MainGameView2Offline {
     
     boolean bTest = false;
 
-//    Point pLevel = new Point(5, 690);
-//    Point pAI = new Point(5, 650);
-//    Point pLife = new Point(5, 610);
-//    Point pScore = new Point(820 + 256, 690);
-//    Point pScoreValue = new Point(838 + 256, 650);
-
     public MainGameView1Player() {
         super();
     }
@@ -673,10 +667,10 @@ public class MainGameView1Player extends MainGameView2Offline {
 
         //draw info
         float scale = 0.7f;
-        writer.Render("LEVEL  " + Global.level, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
+        writer.Render("LEVEL  " + Global.level, pPlayerLife.x, pPlayerLife.y, scale, scale, 1, 1, 1);
         writer.Render("AI  " + lastTanks, pAI.x, pAI.y, scale, scale, 1, 1, 1);
         writer.Render("LIFE " + playerLife, pLife.x, pLife.y, scale, scale, 1, 1, 1);
-        writer.Render("SCORE", pScore.x, pScore.y, scale, scale, 1, 1, 1);
+        writer.Render("SCORE", pOpponentLife.x, pOpponentLife.y, scale, scale, 1, 1, 1);
         writer.Render("" + Global.playerScore, pScoreValue.x, pScoreValue.y, scale, scale, 1, 1, 1);
     }
 }

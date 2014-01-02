@@ -30,6 +30,10 @@ public class Tank3D implements GLEventListener {
     public GLCanvas canvas;
     public FPSAnimator animator;
     public FullscreenSetting fullscreen;
+    
+    public static void main(String[] args) {
+    	new Tank3D();
+    }
 
     public Tank3D() {
         frame = new Frame(this.name);

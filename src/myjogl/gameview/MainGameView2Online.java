@@ -10,9 +10,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import javax.jms.JMSException;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
+import javax.naming.NamingException;
 
+import tank3dclient.IMessageHandler;
+import tank3dclient.Tank3DMessage;
+import tank3dclient.Tank3DMessageListener;
 import myjogl.*;
 import myjogl.utils.*;
 import myjogl.gameobjects.*;
@@ -22,12 +27,70 @@ import myjogl.particles.Explo;
  *
  * @author Jundat
  */
-public class MainGameView2Online extends MainGameView2Offline {
+public class MainGameView2Online extends MainGameView2Offline implements IMessageHandler{
+	
+	private Tank3DMessageListener m_listener;
+	
+	public boolean m_isHost = false;
+	public int m_clientId = 0;
+	public long m_dt = 0; 
 
     public MainGameView2Online() {
         super();
     }
 
+    //---------------------------------
+    
+    private void startConnection() {
+		m_listener = new Tank3DMessageListener();
+		m_listener.setMessageHandler(this);
+		
+		try {
+			m_listener.start();
+		} catch (JMSException e) {
+
+		} catch (NamingException e) {
+
+		} finally {
+			// connected ///////////////////////////////////////////////
+			System.out.println("Connected");
+		}
+	}
+	
+	private void stopConnection() {
+		try {
+			m_listener.stop();
+		} catch (JMSException e) {
+
+		} catch (NamingException e) {
+
+		} finally {
+			// disconnected ///////////////////////////////////////////////
+			System.out.println("Disonnected");
+		}
+	}
+
+	private void sendMessage(Tank3DMessage message) {
+		try {
+			m_listener.sendMessage(message);
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void onReceiveMessage(Tank3DMessage message) {
+		switch(message.Cmd) {
+		case Tank3DMessage.CMD_FIRE:
+			opponentTankFire();
+			break;
+			
+		case Tank3DMessage.CMD_MOVE:
+			opponentHandleInput(message.MoveDirection);
+			break;
+		}
+	}
+	
     @Override
     public void opponentTankFire() {
         if (opponentTank.isAlive()) {
@@ -38,45 +101,44 @@ public class MainGameView2Online extends MainGameView2Offline {
         }
     }
     
-    @Override
-    public void opponentHandleInput(long dt) {
-        KeyboardState state = KeyboardState.getState();
-        
+    public void opponentHandleInput(int moveDir) {
         //up
-        if (state.isDown(KeyEvent.VK_W)) {
+        if (moveDir == KeyEvent.VK_UP) {
             if (opponentTank.isAlive()) {
-                opponentTank.move(CDirections.UP, dt);
+                opponentTank.move(CDirections.UP, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
                     this.opponentTank.rollBack();
                 }
             }
         } //down
-        if (state.isDown(KeyEvent.VK_S)) {
+        if (moveDir == KeyEvent.VK_DOWN) {
             if (opponentTank.isAlive()) {
-                opponentTank.move(CDirections.DOWN, dt);
+                opponentTank.move(CDirections.DOWN, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
                     this.opponentTank.rollBack();
                 }
             }
         }  //left
-        if (state.isDown(KeyEvent.VK_A)) {
+        if (moveDir == KeyEvent.VK_LEFT) {
             if (opponentTank.isAlive()) {
-                opponentTank.move(CDirections.LEFT, dt);
+                opponentTank.move(CDirections.LEFT, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
                     this.opponentTank.rollBack();
                 }
             }
         }  //right
-        if (state.isDown(KeyEvent.VK_D)) {
+        if (moveDir == KeyEvent.VK_RIGHT) {
             if (opponentTank.isAlive()) {
-                opponentTank.move(CDirections.RIGHT, dt);
+                opponentTank.move(CDirections.RIGHT, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
                     this.opponentTank.rollBack();
                 }
             }
         }
     }
-   
+    
+    //---------------------------------
+    
     @Override
     public void keyPressed(KeyEvent e) {
     }
@@ -105,9 +167,9 @@ public class MainGameView2Online extends MainGameView2Offline {
         }
         
         //opponentTank
-        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-            opponentTankFire();
-        }
+        //if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+        //    opponentTankFire();
+        //}
     }
 
     @Override
@@ -127,7 +189,9 @@ public class MainGameView2Online extends MainGameView2Offline {
         if (isPause) {
             return;
         }
+        
         KeyboardState state = KeyboardState.getState();
+        
         //up
         if (state.isDown(KeyEvent.VK_UP)) {
             if (playerTank.isAlive()) {
@@ -161,25 +225,22 @@ public class MainGameView2Online extends MainGameView2Offline {
                 }
             }
         }
-        
-        //this.camera.SetViewPoint(playerTank.getCenter().x, playerTank.getCenter().y + 3, playerTank.getCenter().z);
-        //this.camera.SetEyePoint(playerTank.getCenter().x, playerTank.getCenter().y + 5, playerTank.getCenter().z + 8);
-
     }
-
+    
     @Override
     public void loadLevel(int level) {
         Global.level = level;
-        bSliding = true;
-        deltaBeta = DELTA_BETA;
-        deltaR = DELTA_R;
-        delayTime = 0;
 
         try {
             //init map
             TankMap.getInst().LoadMap(level);
 
-            //playerBoss
+            if(this.m_isHost == false) {
+            	TankMap.getInst().SwapTank();
+            }
+            
+            
+        	//playerBoss
             this.playerBossPosition = TankMap.getInst().bossPosition.Clone();
             this.playerBoss.reset(playerBossPosition, CDirections.UP, playerBoss.isClientBoss);
 
@@ -194,6 +255,7 @@ public class MainGameView2Online extends MainGameView2Offline {
             //opponentTank
             v = ((Vector3) TankMap.getInst().listTankAiPosition.get(0)).Clone();
             opponentTank.reset(v.Clone(), CDirections.LEFT);
+                                   
      
             playerLife = NUMBER_OF_LIEF;
             opponentLife = NUMBER_OF_LIEF;
@@ -220,17 +282,21 @@ public class MainGameView2Online extends MainGameView2Offline {
     @Override
     public void load() {
         isPause = false;
+        bSliding = true;
+        deltaBeta = DELTA_BETA;
+        deltaR = DELTA_R;
+        delayTime = 0;
 
         camera = new Camera(); //init position when load map
         cameraFo = new CameraFo(1, 1, 1, Math.toRadians(45), Math.toRadians(0), 5, 0, 1, 0);
         
         //skybox
-        m_skybox = new SkyBox();
-        m_skybox.Initialize(5.0f);
-        m_skybox.LoadTextures(
-                "data/skybox/top.jpg", "data/skybox/bottom.jpg",
-                "data/skybox/front.jpg", "data/skybox/back.jpg",
-                "data/skybox/left.jpg", "data/skybox/right.jpg");
+        //m_skybox = new SkyBox();
+        //m_skybox.Initialize(5.0f);
+        //m_skybox.LoadTextures(
+        //        "data/skybox/top.jpg", "data/skybox/bottom.jpg",
+        //        "data/skybox/front.jpg", "data/skybox/back.jpg",
+        //        "data/skybox/left.jpg", "data/skybox/right.jpg");
 
         //writer
         writer = new Writer("data/font/Motorwerk_80.fnt");
@@ -526,6 +592,8 @@ public class MainGameView2Online extends MainGameView2Offline {
 
     @Override
     public void update(long dt) {
+    	m_dt = dt;
+    	
         if (isPause) {
             return;
         }
@@ -549,20 +617,19 @@ public class MainGameView2Online extends MainGameView2Offline {
             }
         } else {
             handleInput(dt);
-            opponentHandleInput(dt);
+            //opponentHandleInput(dt);
             
             playerTank.update(dt);
             opponentTank.update(dt);
 
             this.checkBulletCollision();
         }
-        //particle
+        
         ParticalManager.getInstance().Update();
     }
 
     @Override
     public void display() {
-        //
         GL gl = Global.drawable.getGL();
         GLU glu = new GLU();
         gl.glLoadIdentity();
@@ -579,9 +646,8 @@ public class MainGameView2Online extends MainGameView2Offline {
                     camera.mUp.x, camera.mUp.y, camera.mUp.z);
         }
 
-        m_skybox.Render(camera.mPos.x, camera.mPos.y, camera.mPos.z);
+        //m_skybox.Render(camera.mPos.x, camera.mPos.y, camera.mPos.z);
 
-        //map
         TankMap.getInst().Render();
 
         playerTank.draw();
@@ -590,15 +656,10 @@ public class MainGameView2Online extends MainGameView2Offline {
         playerBoss.draw();
         opponentBoss.draw();
 
-        //particle
         ParticalManager.getInstance().Draw(gl, camera);
 
-        //draw info
         float scale = 0.7f;
-        //writer.Render("LEVEL  " + Global.level, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
-        //writer.Render("AI  " + lastTanks, pAI.x, pAI.y, scale, scale, 1, 1, 1);
-        writer.Render("LIFE " + playerLife, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
-        writer.Render("LIFE " + opponentLife, pScore.x, pScore.y, scale, scale, 1, 1, 1);
-        //writer.Render("" + Global.playerScore, pScoreValue.x, pScoreValue.y, scale, scale, 1, 1, 1);
+        writer.Render("LIFE " + playerLife, pPlayerLife.x, pPlayerLife.y, scale, scale, 1, 1, 1);
+        writer.Render("LIFE " + opponentLife, pOpponentLife.x, pOpponentLife.y, scale, scale, 1, 1, 1);
     }
 }
