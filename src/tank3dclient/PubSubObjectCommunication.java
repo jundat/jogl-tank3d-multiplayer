@@ -23,12 +23,12 @@ public class PubSubObjectCommunication implements MessageListener {
 	public String CONNECTION_FACTORY = "GFConnectionFactory";
 	
 
-	private TopicConnection topicConnection;
-	private Topic publishTopic;
-	private Topic subscribeTopic;
-	private TopicSession publishSession;
-	private TopicPublisher topicPublisher;
-	private MessageHandler mMessageHandler;
+	private TopicConnection m_topicConnection;
+	private Topic m_publishTopic;
+	private Topic m_subscribeTopic;
+	private TopicSession m_publishSession;
+	private TopicPublisher m_topicPublisher;
+	private MessageHandler m_messageHandler;
 	
 	
 	@Override
@@ -40,7 +40,7 @@ public class PubSubObjectCommunication implements MessageListener {
 							+ "   | Message : " + communicationMessage.getMessage() + "\n");
 			
 			// Notify to UI
-			mMessageHandler.notifyOnMessage("Sender : " + communicationMessage.getName()
+			m_messageHandler.notifyOnMessage("Sender : " + communicationMessage.getName()
 					+ "    | Message : " + communicationMessage.getMessage() + "\n");
 		} catch (JMSException e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class PubSubObjectCommunication implements MessageListener {
 	}
 
 	public void stop() throws JMSException, NamingException {
-		topicConnection.stop();
+		m_topicConnection.stop();
 	}
 	
 	public void start() throws JMSException, NamingException {
@@ -60,33 +60,33 @@ public class PubSubObjectCommunication implements MessageListener {
 		Context initialContext = new InitialContext(properties);
 		
 		// Lookup topic SUBSCRIBE_TOPIC and PUBLISH_TOPIC
-		subscribeTopic = (Topic)initialContext.lookup(SUBSCRIBE_TOPIC);
-		publishTopic = (Topic)initialContext.lookup(PUBLISH_TOPIC);
+		m_subscribeTopic = (Topic)initialContext.lookup(SUBSCRIBE_TOPIC);
+		m_publishTopic = (Topic)initialContext.lookup(PUBLISH_TOPIC);
 		
 		// Lookup topic factory
 		TopicConnectionFactory topicConnectionFactory = (TopicConnectionFactory)initialContext.lookup(CONNECTION_FACTORY); 
 		
 		// Create TopicConnection from topicConnectionFactory
-		TopicConnection topicConnection = topicConnectionFactory.createTopicConnection();
-		topicConnection.start();
+		m_topicConnection = topicConnectionFactory.createTopicConnection();
+		m_topicConnection.start();
 		
 		// Subscribe
-		TopicSession subscribeSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-		TopicSubscriber topicSubscriber = subscribeSession.createSubscriber(subscribeTopic);
+		TopicSession subscribeSession = m_topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+		TopicSubscriber topicSubscriber = subscribeSession.createSubscriber(m_subscribeTopic);
 		topicSubscriber.setMessageListener(this);
 		
 		// Publish
-		publishSession = topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-		topicPublisher = publishSession.createPublisher(publishTopic);
+		m_publishSession = m_topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+		m_topicPublisher = m_publishSession.createPublisher(m_publishTopic);
 	}
 	
 	public void sendMessage(String userName, String message) throws JMSException {
-		ObjectMessage objectMessage = publishSession.createObjectMessage();
+		ObjectMessage objectMessage = m_publishSession.createObjectMessage();
 		objectMessage.setObject(new CommunicationMessage(userName, message));
-		topicPublisher.publish(objectMessage);
+		m_topicPublisher.publish(objectMessage);
 	}
 	
 	public void setMessageHandler(MessageHandler handler) {
-		this.mMessageHandler = handler;
+		this.m_messageHandler = handler;
 	}
 }

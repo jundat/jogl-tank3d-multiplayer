@@ -2,10 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Testtool;
+package myjogl.utils;
 
-import myjogl.utils.MathUtil;
-import myjogl.utils.Vector3;
 
 /**
  *

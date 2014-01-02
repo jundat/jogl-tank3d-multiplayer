@@ -4,13 +4,15 @@
  */
 package myjogl.gameview;
 
-import Testtool.CameraFo;
 import myjogl.particles.ParticalManager;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
+
 import myjogl.*;
 import myjogl.utils.*;
 import myjogl.gameobjects.*;
