@@ -49,7 +49,7 @@ public class Main extends javax.swing.JFrame implements
 		tfPublishTopic.setToolTipText("jms/YourTopicName");
 		tfPublishTopic.setName("tfPublishTopic"); // NOI18N
 		
-		tfSubscribeTopic.setText("jms/Topic02");
+		tfSubscribeTopic.setText("jms/Topic01");
 		tfSubscribeTopic.setToolTipText("jms/YourTopicName");
 		
 		jLabel2.setText("Subscribe:");
@@ -278,8 +278,10 @@ public class Main extends javax.swing.JFrame implements
 			} catch (NamingException e) {
 
 			} finally {
-
-				btnStartReset.setText("RESET");
+				
+				// connected ///////////////////////////////////////////////
+				
+				btnStartReset.setText("STOP");
 				tfNewMessage.setEnabled(true);
 				btnSend.setEnabled(true);
 				chatLog.setEnabled(true);
@@ -296,7 +298,9 @@ public class Main extends javax.swing.JFrame implements
 
 			} catch (NamingException e) {
 
-			} finally {
+			} finally { 
+				
+				// disconnected ///////////////////////////////////////////////
 
 				btnStartReset.setText("START");
 				tfNewMessage.setEnabled(false);
