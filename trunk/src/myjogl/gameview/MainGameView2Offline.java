@@ -53,10 +53,10 @@ public class MainGameView2Offline implements GameView {
     public int delayTime = 0;
     public Writer writer;
     
-    public Point pLevel = new Point(5, 690);
+    public Point pPlayerLife = new Point(5, 690);
     public Point pAI = new Point(5, 650);
     public Point pLife = new Point(5, 610);
-    public Point pScore = new Point(820 + 256, 690);
+    public Point pOpponentLife = new Point(820 + 256, 690);
     public Point pScoreValue = new Point(838 + 256, 650);
     
     public Sound sBackground;
@@ -615,8 +615,8 @@ public class MainGameView2Offline implements GameView {
         float scale = 0.7f;
         //writer.Render("LEVEL  " + Global.level, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
         //writer.Render("AI  " + lastTanks, pAI.x, pAI.y, scale, scale, 1, 1, 1);
-        writer.Render("LIFE " + playerLife, pLevel.x, pLevel.y, scale, scale, 1, 1, 1);
-        writer.Render("LIFE " + opponentLife, pScore.x, pScore.y, scale, scale, 1, 1, 1);
+        writer.Render("LIFE " + playerLife, pPlayerLife.x, pPlayerLife.y, scale, scale, 1, 1, 1);
+        writer.Render("LIFE " + opponentLife, pOpponentLife.x, pOpponentLife.y, scale, scale, 1, 1, 1);
         //writer.Render("" + Global.playerScore, pScoreValue.x, pScoreValue.y, scale, scale, 1, 1, 1);
     }
 }

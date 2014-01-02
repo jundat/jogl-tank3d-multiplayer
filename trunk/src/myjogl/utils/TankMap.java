@@ -32,10 +32,10 @@ public class TankMap {
     public boolean hasTankAIFast = false;
     public boolean hasTankAISlow = false;
     //
-    public ArrayList listTankAiPosition;
-    public ArrayList listTankAiFastPosition;
-    public ArrayList listTankAiSlowPosition;
-    public ArrayList listTankPosition;
+    public ArrayList<Vector3> listTankAiPosition;
+    public ArrayList<Vector3> listTankAiFastPosition;
+    public ArrayList<Vector3> listTankAiSlowPosition;
+    public ArrayList<Vector3> listTankPosition;
     public Vector3 bossPosition;
     public Vector3 bossAiPosition;
     //
@@ -52,7 +52,6 @@ public class TankMap {
     private static Texture ttGachMen4 = null;
     //
     private static Texture ttRockTop = null;
-    private static Texture ttRockEdge = null;
     private static Texture ttWater = null;
     private static Texture ttIce = null;
     //
@@ -88,15 +87,15 @@ public class TankMap {
         ttGachMen = ttGachMen1;
         //
         ttRockTop = ResourceManager.getInst().getTexture("data/game/rock_top.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR_MIPMAP_LINEAR, GL.GL_LINEAR_MIPMAP_LINEAR);
-        ttRockEdge = ResourceManager.getInst().getTexture("data/game/rock_edge.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR_MIPMAP_LINEAR, GL.GL_LINEAR_MIPMAP_LINEAR);
+        ResourceManager.getInst().getTexture("data/game/rock_edge.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR_MIPMAP_LINEAR, GL.GL_LINEAR_MIPMAP_LINEAR);
         ttWater = ResourceManager.getInst().getTexture("data/game/water.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR_MIPMAP_LINEAR, GL.GL_LINEAR_MIPMAP_LINEAR);
         ttIce = ResourceManager.getInst().getTexture("data/game/ice.png", true, GL.GL_REPEAT, GL.GL_REPEAT, GL.GL_LINEAR_MIPMAP_LINEAR, GL.GL_LINEAR_MIPMAP_LINEAR);
 
         //
-        listTankPosition = new ArrayList();
-        listTankAiPosition = new ArrayList();
-        listTankAiFastPosition = new ArrayList();
-        listTankAiSlowPosition = new ArrayList();
+        listTankPosition = new ArrayList<Vector3>();
+        listTankAiPosition = new ArrayList<Vector3>();
+        listTankAiFastPosition = new ArrayList<Vector3>();
+        listTankAiSlowPosition = new ArrayList<Vector3>();
 
         // Init list
         GL gl = Global.drawable.getGL();
@@ -271,6 +270,16 @@ public class TankMap {
         //----------------------------
     }
 
+    public void SwapTank() {
+    	Vector3 tempbossposition = bossPosition.Clone();
+    	bossPosition = bossAiPosition.Clone();
+    	bossAiPosition = tempbossposition;
+    	
+    	ArrayList<Vector3> tempList = new ArrayList<Vector3>(listTankAiPosition);
+    	listTankAiPosition = new ArrayList<Vector3>(listTankPosition);
+    	listTankPosition = new ArrayList<Vector3>(tempList);
+    }
+    
     //only use png file
     public void LoadMap(int mapNumber) {
         //reset all

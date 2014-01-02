@@ -60,9 +60,10 @@ public class IntroView implements GameView {
     public void pointerMoved(MouseEvent e) {
     }
 
-    public void pointerReleased(MouseEvent e) {
-        if (rectContinue.contains(e.getX(), e.getY())) {
-            GameEngine.getInst().attach(new MenuView());
+    public void pointerReleased(MouseEvent e) {        
+        if (sound.clip.getMicrosecondPosition() >= endLight1) {
+            GameEngine.sClick.play();
+        	GameEngine.getInst().attach(new MenuView());
             GameEngine.getInst().detach(this);
         }
     }

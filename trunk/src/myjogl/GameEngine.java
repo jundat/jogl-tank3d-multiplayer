@@ -1,6 +1,7 @@
 package myjogl;
 
 import myjogl.gameview.*;
+
 import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,7 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import javax.media.opengl.GLAutoDrawable;
+
 import myjogl.gameview.IntroView;
 import myjogl.tank3d.Tank3D;
 import myjogl.utils.ResourceManager;
@@ -23,9 +26,9 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
     public boolean paused;
     public int volume = 3; // 1, 2, 3, 4, 5
     public Tank3D tank3d;
-    public ArrayList views;
+    public ArrayList<GameView> views;
     public long localTime = System.currentTimeMillis();
-    ArrayList listOldView = null; //detaching view
+    private ArrayList<GameView> listOldView = null; //detaching view
     boolean hasOldView = false;
     GameView newView = null; //attaching view
     boolean hasNewView = false;
@@ -52,13 +55,13 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
     public void init(Tank3D tank3d) {
         this.tank3d = tank3d;
         this.paused = false;
-        this.views = new ArrayList();
-        this.listOldView = new ArrayList();
+        this.views = new ArrayList<GameView>();
+        this.listOldView = new ArrayList<GameView>();
 
         tank3d.canvas.addKeyListener(KeyboardState.getState());
         tank3d.frame.setTitle("Battle City");
         //--------
-        this.attach(new IntroView());
+        this.attach(new ChooseModeView());
     }
 
     public void loadResource(GLAutoDrawable drawable) {

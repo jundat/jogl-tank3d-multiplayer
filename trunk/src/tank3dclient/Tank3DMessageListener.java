@@ -16,7 +16,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class PubSubObjectCommunication implements MessageListener {
+public class Tank3DMessageListener implements MessageListener {
 
 	public String SUBSCRIBE_TOPIC = "jms/Topic01";
 	public String PUBLISH_TOPIC = "jms/Topic01";
@@ -28,20 +28,18 @@ public class PubSubObjectCommunication implements MessageListener {
 	private Topic m_subscribeTopic;
 	private TopicSession m_publishSession;
 	private TopicPublisher m_topicPublisher;
-	private MessageHandler m_messageHandler;
+	private IMessageHandler m_messageHandler;
 	
 	
 	@Override
 	public void onMessage(Message arg0) {
 		try {
 			ObjectMessage objectMessage = (ObjectMessage) arg0;
-			CommunicationMessage communicationMessage = (CommunicationMessage)objectMessage.getObject();
-			System.out.println("Sender : " + communicationMessage.getName()
-							+ "   | Message : " + communicationMessage.getMessage() + "\n");
+			Tank3DMessage message = (Tank3DMessage)objectMessage.getObject();
+			System.out.println(message.toString());
 			
 			// Notify to UI
-			m_messageHandler.notifyOnMessage("Sender : " + communicationMessage.getName()
-					+ "    | Message : " + communicationMessage.getMessage() + "\n");
+			m_messageHandler.onReceiveMessage(message);
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
@@ -80,13 +78,13 @@ public class PubSubObjectCommunication implements MessageListener {
 		m_topicPublisher = m_publishSession.createPublisher(m_publishTopic);
 	}
 	
-	public void sendMessage(String userName, String message) throws JMSException {
+	public void sendMessage(Tank3DMessage message) throws JMSException {
 		ObjectMessage objectMessage = m_publishSession.createObjectMessage();
-		objectMessage.setObject(new CommunicationMessage(userName, message));
+		objectMessage.setObject(message);
 		m_topicPublisher.publish(objectMessage);
 	}
 	
-	public void setMessageHandler(MessageHandler handler) {
+	public void setMessageHandler(IMessageHandler handler) {
 		this.m_messageHandler = handler;
 	}
 }
