@@ -20,6 +20,7 @@ public class Tank3DMessage implements Serializable {
 	public final static int CMD_FIRE = 2;
 	public final static int CMD_FIND_HOST = 3;
 	public final static int CMD_IM_HOST = 4;
+	public final static int CMD_QUIT = 5;
 	
 	
 	public int ClientId = 0;

@@ -174,6 +174,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
             }
 
             hasOldView = false;
+            this.listOldView.clear();
 
             System.gc();
             Runtime.getRuntime().gc();

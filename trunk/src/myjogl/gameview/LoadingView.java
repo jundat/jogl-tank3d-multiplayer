@@ -54,7 +54,7 @@ public class LoadingView implements GameView {
     }
 
     public void unload() {
-        ResourceManager.getInst().deleteTexture("data/loading/loading_circle2.png");
+        //ResourceManager.getInst().deleteTexture("data/loading/loading_circle2.png");
     }
 
     public void update(long elapsedTime) {

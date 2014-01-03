@@ -29,7 +29,6 @@ public class ConnectingView implements GameView, IMessageHandler {
 
 	private Tank3DMessageListener m_listener;
 	
-    private boolean m_isConnected = false;
     private float rotate = 0.0f;
     private Texture ttLoadingCircle;
 
@@ -45,7 +44,7 @@ public class ConnectingView implements GameView, IMessageHandler {
 	@Override
 	public void onConnected() {
 		// TODO Auto-generated method stub
-		System.out.println("Connected ------------------- ");
+		System.out.println("Connected in ConnectingView... ");
 		
 		Tank3DMessage message = new Tank3DMessage();
 		message.ClientId = Global.clientId;
@@ -124,7 +123,7 @@ public class ConnectingView implements GameView, IMessageHandler {
     }
 
     public void unload() {
-        ResourceManager.getInst().deleteTexture("data/loading/loading_circle2.png");
+        //ResourceManager.getInst().deleteTexture("data/loading/loading_circle2.png");
     }
 
     public void update(long elapsedTime) {

@@ -48,8 +48,7 @@ public class Tank3DMessageListener implements MessageListener {
 		try {
 			ObjectMessage objectMessage = (ObjectMessage) arg0;
 			Tank3DMessage message = (Tank3DMessage)objectMessage.getObject();
-			System.out.println(message.toString());
-			
+
 			// Notify to UI
 			if(m_messageHandler != null) {
 				m_messageHandler.onReceiveMessage(message);
@@ -59,8 +58,12 @@ public class Tank3DMessageListener implements MessageListener {
 		}
 	}
 
-	public void stopConnection() throws JMSException, NamingException {
-		m_topicConnection.stop();
+	public void stopConnection() {
+		try {
+			m_topicConnection.stop();
+		} catch (Exception eee) {
+			System.err.println("Can not stop connection");
+		}
 	}
 	
 	public void startThread() {
