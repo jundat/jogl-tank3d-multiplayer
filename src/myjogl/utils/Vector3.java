@@ -4,13 +4,19 @@
  */
 package myjogl.utils;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jundat
  */
-public class Vector3			// expanded 3D vector struct
+public class Vector3  implements Serializable 			// expanded 3D vector struct
 {
-    public float x, y, z;		// 3D vector coordinates
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8649237752120662634L;
+	public float x, y, z;		// 3D vector coordinates
     
     public Vector3() {
         x = y = z = 0;

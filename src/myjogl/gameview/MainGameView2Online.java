@@ -79,11 +79,13 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 				break;
 				
 			case Tank3DMessage.CMD_MOVE:
-				opponentHandleInput(message.PressKey);
+				opponentTankMove(message.Position, message.Direction);
 				break;
 			}
 		}
 	}
+	
+	//---------------------------------
 	
     @Override
     public void opponentTankFire() {
@@ -95,7 +97,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         }
     }
     
-    public void opponentHandleInput(int key) {
+    public void opponentInput(int key) {
         //up
         if (key == KeyEvent.VK_UP) {
             if (opponentTank.isAlive()) {
@@ -131,6 +133,11 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         }
     }
     
+    public void opponentTankMove(Vector3 position, int direction) {
+    	opponentTank.setPosition(position);
+    	opponentTank.setDirection(direction);
+    }
+    
     //---------------------------------
     
     private void sendPlayerFire() {
@@ -140,11 +147,20 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 		this.m_listener.sendMessage(newmessage);
     }
     
-    private void sendPlayerHandleInput(int key) {
+    private void sendPlayerInput(int key) {
     	Tank3DMessage newmessage = new Tank3DMessage();
 		newmessage.ClientId = Global.clientId;
 		newmessage.Cmd = Tank3DMessage.CMD_MOVE;
 		newmessage.PressKey = key;
+		this.m_listener.sendMessage(newmessage);
+    }
+    
+    private void sendPlayerMove(Vector3 position, int direction) {
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_MOVE;
+		newmessage.Position = position;
+		newmessage.Direction = direction;
 		this.m_listener.sendMessage(newmessage);
     }
     
@@ -210,45 +226,45 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         if (state.isDown(KeyEvent.VK_UP)) {
             if (playerTank.isAlive()) {
             	
-            	sendPlayerHandleInput(KeyEvent.VK_UP);
-            	
                 playerTank.move(CDirections.UP, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
                 }
+                
+                sendPlayerMove(playerTank.getPosition(), playerTank.getDirection());
             }
         } //down
         if (state.isDown(KeyEvent.VK_DOWN)) {
             if (playerTank.isAlive()) {
             	
-            	sendPlayerHandleInput(KeyEvent.VK_DOWN);
-            	
                 playerTank.move(CDirections.DOWN, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
                 }
+                
+                sendPlayerMove(playerTank.getPosition(), playerTank.getDirection());
             }
         }  //left
         if (state.isDown(KeyEvent.VK_LEFT)) {
             if (playerTank.isAlive()) {
             	
-            	sendPlayerHandleInput(KeyEvent.VK_LEFT);
-            	
                 playerTank.move(CDirections.LEFT, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
                 }
+                
+                sendPlayerMove(playerTank.getPosition(), playerTank.getDirection());
             }
         }  //right
         if (state.isDown(KeyEvent.VK_RIGHT)) {
             if (playerTank.isAlive()) {
             	
-            	sendPlayerHandleInput(KeyEvent.VK_RIGHT);
-            	
                 playerTank.move(CDirections.RIGHT, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
                 }
+                
+                sendPlayerMove(playerTank.getPosition(), playerTank.getDirection());
             }
         }
     }

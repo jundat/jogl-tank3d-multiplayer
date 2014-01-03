@@ -4,6 +4,8 @@
  */
 package myjogl.gameobjects;
 
+import java.io.Serializable;
+
 /**
  * H??ng trong m?t ph?ng Oxz
  * Up:    -Oz
@@ -12,8 +14,13 @@ package myjogl.gameobjects;
  * Right:  Ox 
  * @author Jundat
  */
-public class CDirections {
-    public final static int NONE = -1;
+public class CDirections  implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2086530904016517505L;
+	public final static int NONE = -1;
     //
     public final static int UP = 0;     //-Oz
     public final static int DOWN = 1;   //Oz
