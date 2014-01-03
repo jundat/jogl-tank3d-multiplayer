@@ -3,6 +3,9 @@ package tank3dclient;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
 
+import myjogl.gameobjects.CDirections;
+import myjogl.utils.Vector3;
+
 /**
  * Contain data to send over network
  * @author Jundat
@@ -22,11 +25,13 @@ public class Tank3DMessage implements Serializable {
 	public int ClientId = 0;
 	public int Cmd = CMD_NONE;
 	public int PressKey = KeyEvent.VK_HOME;
+	public Vector3 Position = new Vector3();
+	public int Direction = CDirections.LEFT;
 	
 	public Tank3DMessage() {
 	}
 	
 	public String toString() {
-		return "(" + ClientId + "," + Cmd + "," + PressKey + ")";		
+		return "(" + ClientId + "," + Cmd + "," + PressKey + "," + Position + "," + Direction + ")";		
 	}
 }
