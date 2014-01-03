@@ -27,13 +27,11 @@ import myjogl.particles.Explo;
  *
  * @author Jundat
  */
-public class MainGameView2Online extends MainGameView2Offline implements IMessageHandler{
+public class MainGameView2Online extends MainGameView2Offline implements IMessageHandler {
 	
 	private Tank3DMessageListener m_listener;
 	
-	public boolean m_isHost = false;
-	public int m_clientId = 0;
-	public long m_dt = 0; 
+	public long m_dt = 0;
 
     public MainGameView2Online() {
         super();
@@ -41,25 +39,17 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 
     //---------------------------------
     
-    private void startConnection() {
-		m_listener = new Tank3DMessageListener();
+    public void startConnection() {
+		m_listener = Tank3DMessageListener.getInstance();
 		m_listener.setMessageHandler(this);
 		
-		try {
-			m_listener.start();
-		} catch (JMSException e) {
-
-		} catch (NamingException e) {
-
-		} finally {
-			// connected ///////////////////////////////////////////////
-			System.out.println("Connected");
-		}
+		
+		m_listener.startConnection();
 	}
 	
-	private void stopConnection() {
+	public void stopConnection() {
 		try {
-			m_listener.stop();
+			m_listener.stopConnection();
 		} catch (JMSException e) {
 
 		} catch (NamingException e) {
@@ -70,24 +60,28 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 		}
 	}
 
-	private void sendMessage(Tank3DMessage message) {
-		try {
-			m_listener.sendMessage(message);
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
+	public void sendMessage(Tank3DMessage message) {
+		m_listener.sendMessage(message);
+	}
+
+	@Override
+	public void onConnected() {
+		// TODO Auto-generated method stub
+		System.out.println("Connected");
 	}
 	
 	@Override
 	public void onReceiveMessage(Tank3DMessage message) {
-		switch(message.Cmd) {
-		case Tank3DMessage.CMD_FIRE:
-			opponentTankFire();
-			break;
-			
-		case Tank3DMessage.CMD_MOVE:
-			opponentHandleInput(message.MoveDirection);
-			break;
+		if(message.ClientId != Global.clientId) {
+			switch(message.Cmd) {
+			case Tank3DMessage.CMD_FIRE:
+				opponentTankFire();
+				break;
+				
+			case Tank3DMessage.CMD_MOVE:
+				opponentHandleInput(message.PressKey);
+				break;
+			}
 		}
 	}
 	
@@ -101,9 +95,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         }
     }
     
-    public void opponentHandleInput(int moveDir) {
+    public void opponentHandleInput(int key) {
         //up
-        if (moveDir == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_UP) {
             if (opponentTank.isAlive()) {
                 opponentTank.move(CDirections.UP, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
@@ -111,7 +105,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                 }
             }
         } //down
-        if (moveDir == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_DOWN) {
             if (opponentTank.isAlive()) {
                 opponentTank.move(CDirections.DOWN, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
@@ -119,7 +113,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                 }
             }
         }  //left
-        if (moveDir == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_LEFT) {
             if (opponentTank.isAlive()) {
                 opponentTank.move(CDirections.LEFT, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
@@ -127,7 +121,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                 }
             }
         }  //right
-        if (moveDir == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_RIGHT) {
             if (opponentTank.isAlive()) {
                 opponentTank.move(CDirections.RIGHT, m_dt);
                 if (this.checkTankCollision(opponentTank)) {
@@ -135,6 +129,23 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                 }
             }
         }
+    }
+    
+    //---------------------------------
+    
+    private void sendPlayerFire() {
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_FIRE;
+		this.m_listener.sendMessage(newmessage);
+    }
+    
+    private void sendPlayerHandleInput(int key) {
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_MOVE;
+		newmessage.PressKey = key;
+		this.m_listener.sendMessage(newmessage);
     }
     
     //---------------------------------
@@ -160,6 +171,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             if (playerTank.isAlive()) {
                 if (playerTank.fire()) {
+                	
+                	sendPlayerFire();
+                	
                     GameEngine.sFire.clone().setVolume(6.0f);
                     GameEngine.sFire.clone().play();
                 }
@@ -195,6 +209,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         //up
         if (state.isDown(KeyEvent.VK_UP)) {
             if (playerTank.isAlive()) {
+            	
+            	sendPlayerHandleInput(KeyEvent.VK_UP);
+            	
                 playerTank.move(CDirections.UP, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
@@ -203,6 +220,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         } //down
         if (state.isDown(KeyEvent.VK_DOWN)) {
             if (playerTank.isAlive()) {
+            	
+            	sendPlayerHandleInput(KeyEvent.VK_DOWN);
+            	
                 playerTank.move(CDirections.DOWN, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
@@ -211,6 +231,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         }  //left
         if (state.isDown(KeyEvent.VK_LEFT)) {
             if (playerTank.isAlive()) {
+            	
+            	sendPlayerHandleInput(KeyEvent.VK_LEFT);
+            	
                 playerTank.move(CDirections.LEFT, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
@@ -219,6 +242,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         }  //right
         if (state.isDown(KeyEvent.VK_RIGHT)) {
             if (playerTank.isAlive()) {
+            	
+            	sendPlayerHandleInput(KeyEvent.VK_RIGHT);
+            	
                 playerTank.move(CDirections.RIGHT, dt);
                 if (this.checkTankCollision(playerTank)) {
                     this.playerTank.rollBack();
@@ -235,10 +261,9 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
             //init map
             TankMap.getInst().LoadMap(level);
 
-            if(this.m_isHost == false) {
+            if(Global.isHost == false) {
             	TankMap.getInst().SwapTank();
-            }
-            
+            }            
             
         	//playerBoss
             this.playerBossPosition = TankMap.getInst().bossPosition.Clone();
@@ -281,6 +306,14 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 
     @Override
     public void load() {
+    	
+    	//network 
+    	
+    	this.m_listener = Tank3DMessageListener.getInstance();
+    	this.m_listener.setMessageHandler(this);
+    	
+    	//---------------
+    	
         isPause = false;
         bSliding = true;
         deltaBeta = DELTA_BETA;
@@ -662,4 +695,5 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         writer.Render("LIFE " + playerLife, pPlayerLife.x, pPlayerLife.y, scale, scale, 1, 1, 1);
         writer.Render("LIFE " + opponentLife, pOpponentLife.x, pOpponentLife.y, scale, scale, 1, 1, 1);
     }
+
 }
