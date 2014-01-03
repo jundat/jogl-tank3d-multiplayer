@@ -161,7 +161,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
             view.update(time);
         }
         
-        System.out.println("FPS: " + 1000.0f/time);
+        //System.out.println("FPS: " + 1000.0f/time);
     }
 
     public void run(GLAutoDrawable drawable) {

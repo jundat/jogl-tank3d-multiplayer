@@ -26,14 +26,18 @@ public class Global {
     public static int FPS = 60;
     public final static float designWidth = 1280;
     public final static float designHeight = 720;
-    public static int wndWidth = (int)designWidth/3*2;//1366/2;// 1280; //1030 - 6
-    public static int wndHeight = (int)designHeight/3*2;//720 * 1366/2/1280; //676 - 36
+    public static int wndWidth = (int)designWidth/2;//1366/2;// 1280; //1030 - 6
+    public static int wndHeight = (int)designHeight/2;//720 * 1366/2/1280; //676 - 36
     public static float scaleFactorX = (float)wndWidth/(float)designWidth;
     public static float scaleFactorY = (float)wndHeight/(float)designHeight;
     public static GLAutoDrawable drawable = null;
-    
     public static Random random = new Random(System.currentTimeMillis());
-
+    
+    public static boolean isHost = true;
+    public static int clientId = random.nextInt(10000000);
+    
+    
+    
     public static GL getGL() {
         return drawable.getGL();
     }

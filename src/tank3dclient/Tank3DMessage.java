@@ -15,9 +15,18 @@ public class Tank3DMessage implements Serializable {
 	public final static int CMD_NONE = 0;
 	public final static int CMD_MOVE = 1;
 	public final static int CMD_FIRE = 2;
+	public final static int CMD_FIND_HOST = 3;
+	public final static int CMD_IM_HOST = 4;
 	
 	
 	public int ClientId = 0;
 	public int Cmd = CMD_NONE;
-	public int MoveDirection = KeyEvent.VK_HOME;
+	public int PressKey = KeyEvent.VK_HOME;
+	
+	public Tank3DMessage() {
+	}
+	
+	public String toString() {
+		return "(" + ClientId + "," + Cmd + "," + PressKey + ")";		
+	}
 }

@@ -5,14 +5,16 @@
 package myjogl.gameview;
 
 import com.sun.opengl.util.texture.Texture;
+
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
 import javax.media.opengl.GL;
+
 import myjogl.GameEngine;
 import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
-import myjogl.utils.Writer;
 
 /**
  *
@@ -27,11 +29,11 @@ public class ChooseModeView implements GameView {
     Point pBottom = new Point(0, 0);
     Point pAboutBg = new Point(52, 720 - 584);
     float textScale = 0.85f * 720 / 640;
-    //
+    
     private MenuItem itPlay;
     private MenuItem itAbout;
     private MenuItem itExit;
-    //
+    
     Texture ttBgMenu;
     Texture ttTop;
     Texture ttBottom;
@@ -61,9 +63,13 @@ public class ChooseModeView implements GameView {
     
     private void ChooseExit() {
         itExit.setIsClick(false);
-        preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Online()));
+        
+        //preloadMainGame();
+        //GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Online()));
+        
+        GameEngine.getInst().attach(new ConnectingView());
         GameEngine.getInst().detach(this);
+        
     }
     
     private void ChooseEscape() {
@@ -211,8 +217,6 @@ public class ChooseModeView implements GameView {
         itExit.SetPosition(pExit);
         
         itPlay.setIsOver(true);
-        
-        Writer writer = new Writer("data/font/Motorwerk_80.fnt");
     }
 
     public void unload() {

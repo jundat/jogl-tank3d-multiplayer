@@ -13,7 +13,6 @@ import myjogl.utils.Renderer;
 import myjogl.utils.ResourceManager;
 
 /**
- * Ch?a dùng ???c!!!
  *
  * @author Jundat
  */
@@ -59,7 +58,7 @@ public class LoadingView implements GameView {
     }
 
     public void update(long elapsedTime) {
-        rotate += 15.0f;
+        rotate += elapsedTime;
         
         currentLoad = ResourceManager.getInst().GetNumberPreload();
         
