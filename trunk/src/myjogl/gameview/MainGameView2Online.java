@@ -250,7 +250,31 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
             	Point temp = new Point(pPlayerLife);
             	pPlayerLife = new Point(pOpponentLife);
             	pOpponentLife = temp;            	
-            }            
+            }
+
+            //==============================
+            
+            
+
+        	//playerBoss
+            playerBoss = new Boss(Global.isHost);
+            playerBoss.load();
+            
+            //playerTank
+            playerTank = new Tank(Global.isHost);
+            playerTank.load();
+            
+            
+            //opponentBoss
+            opponentBoss = new Boss(! Global.isHost);
+            opponentBoss.load();
+            
+            //opponentTank
+            opponentTank = new Tank(! Global.isHost);
+            opponentTank.load();
+            
+            
+            //==============================
             
         	//playerBoss
             this.playerBossPosition = TankMap.getInst().bossPosition.Clone();
@@ -332,21 +356,6 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         sBackground.stop();
         sBackground.play();
         
-        //playerBoss
-        playerBoss = new Boss(true);
-        playerBoss.load();
-        
-        //opponentBoss
-        opponentBoss = new Boss(false);
-        opponentBoss.load();
-                
-        //playerTank
-        playerTank = new Tank(true);
-        playerTank.load();
-        
-        //opponentTank
-        opponentTank = new Tank(false);
-        opponentTank.load();
 
         //init map
         this.loadLevel(Global.level); //start at Global.level 0
