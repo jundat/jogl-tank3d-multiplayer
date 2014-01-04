@@ -80,12 +80,21 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 				break;
 				
 			case Tank3DMessage.CMD_QUIT:
-				//show lost connection...
-				
-				if (isPause == false) {
-					LostGameView dialog = new LostGameView(this);
-					GameEngine.getInstance().attach(dialog);
+				if(isPause == true) {
+					GameEngine.getInstance().detachLast();
+					isPause = false;
 				}
+				LostGameView dialog = new LostGameView(this);
+				GameEngine.getInstance().attach(dialog);
+				break;
+				
+			case Tank3DMessage.CMD_RESTART:
+				if(isPause == true) {
+					GameEngine.getInstance().detachLast();
+					isPause = false;
+				}
+				GameEngine.getInstance().detachLast();
+		    	this.loadLevel(Global.level);
 				break;
 			}
 		}
@@ -234,6 +243,17 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
             }
         }
     }
+
+    @Override
+    public void restart() {
+    	this.isPause = false;
+    	this.loadLevel(Global.level);
+    	
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_RESTART;
+		this.m_listener.sendMessage(newmessage);
+    }
     
     @Override
     public void loadLevel(int level) {
@@ -252,30 +272,6 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
             	pOpponentLife = temp;            	
             }
 
-            //==============================
-            
-            
-
-        	//playerBoss
-            playerBoss = new Boss(Global.isHost);
-            playerBoss.load();
-            
-            //playerTank
-            playerTank = new Tank(Global.isHost);
-            playerTank.load();
-            
-            
-            //opponentBoss
-            opponentBoss = new Boss(! Global.isHost);
-            opponentBoss.load();
-            
-            //opponentTank
-            opponentTank = new Tank(! Global.isHost);
-            opponentTank.load();
-            
-            
-            //==============================
-            
         	//playerBoss
             this.playerBossPosition = TankMap.getInst().bossPosition.Clone();
             this.playerBoss.reset(playerBossPosition, CDirections.UP, playerBoss.isClientBoss);
@@ -355,6 +351,28 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         sBackground = ResourceManager.getInst().getSound("sound/bg_game.wav", true);
         sBackground.stop();
         sBackground.play();
+
+
+        //==============================
+        
+    	//playerBoss
+        playerBoss = new Boss(Global.isHost);
+        playerBoss.load();
+        
+        //playerTank
+        playerTank = new Tank(Global.isHost);
+        playerTank.load();
+        
+        
+        //opponentBoss
+        opponentBoss = new Boss(! Global.isHost);
+        opponentBoss.load();
+        
+        //opponentTank
+        opponentTank = new Tank(! Global.isHost);
+        opponentTank.load();
+        
+        //==============================
         
 
         //init map
@@ -636,10 +654,6 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     public void update(long dt) {
     	m_dt = dt;
     	
-        if (isPause) {
-            return;
-        }
-        
         cameraFo.Update();
 
         if (bSliding) {

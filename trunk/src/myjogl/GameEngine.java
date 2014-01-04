@@ -148,6 +148,13 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         }
     }
 
+    public void detachLast() {
+    	if (!this.views.isEmpty()) {
+            GameView view = (GameView) this.views.get(this.views.size() - 1);
+            this.detach(view);
+        }
+    }
+    
     public void detachAll() {
     	paused = true;
     	
