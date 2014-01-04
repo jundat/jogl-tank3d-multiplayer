@@ -196,6 +196,11 @@ public class MainGameView2Offline implements GameView {
 
     }
 
+    public void restart() {
+        this.isPause = false;
+    	this.loadLevel(Global.level);
+    }
+    
     public void loadLevel(int level) {
         Global.level = level;
         bSliding = true;

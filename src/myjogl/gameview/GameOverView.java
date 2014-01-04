@@ -159,8 +159,7 @@ public class GameOverView implements GameView {
             itRetry.setIsClick(true);
             GameEngine.sClick.play();
             //
-            mainGameView.isPause = false;
-            mainGameView.loadLevel(Global.level);
+            mainGameView.restart();
             GameEngine.getInstance().detach(this);
         }
     }

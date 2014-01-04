@@ -70,8 +70,8 @@ public class PauseView implements GameView {
                         itRetry.setIsClick(true);
                         GameEngine.sClick.play();
                         //
-                        mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
                         mainGameView.isPause = false;
+                        mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
                         GameEngine.getInstance().detach(this);
                     }
                     break;
@@ -165,8 +165,8 @@ public class PauseView implements GameView {
             itMenu.setIsClick(false);
             GameEngine.sClick.play();
             //
-            mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
             mainGameView.isPause = false;
+            mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
             GameEngine.getInstance().detach(this);
         }
     }
@@ -189,7 +189,8 @@ public class PauseView implements GameView {
     }
 
     public void unload() {
-        ResourceManager.getInst().deleteTexture("data/common/bg_dialog.png");
+        mainGameView.isPause = false;
+        //ResourceManager.getInst().deleteTexture("data/common/bg_dialog.png");
     }
 
     public void update(long elapsedTime) {
