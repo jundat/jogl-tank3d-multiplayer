@@ -9,10 +9,7 @@ import com.sun.opengl.util.texture.Texture;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import javax.jms.JMSException;
 import javax.media.opengl.GL;
-import javax.naming.NamingException;
-
 import tank3dclient.IMessageHandler;
 import tank3dclient.Tank3DMessage;
 import tank3dclient.Tank3DMessageListener;
@@ -65,16 +62,16 @@ public class ConnectingView implements GameView, IMessageHandler {
 					
 					Global.isHost = true;
 					preloadMainGame();
-			        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Online()));
-			        GameEngine.getInst().detach(this);
+			        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
+			        GameEngine.getInstance().detach(this);
 					break;
 					
 				case Tank3DMessage.CMD_IM_HOST:
 					
 					Global.isHost = false;
 					preloadMainGame();
-			        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Online()));
-			        GameEngine.getInst().detach(this);
+			        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
+			        GameEngine.getInstance().detach(this);
 					break;
 					
 			}
@@ -107,6 +104,12 @@ public class ConnectingView implements GameView, IMessageHandler {
     }
 
     public void keyReleased(KeyEvent e) {
+    	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+    		GameEngine.sClick.play();
+            //
+            GameEngine.getInstance().attach(new ChooseModeView());
+            GameEngine.getInstance().detach(this);
+    	}
     }
 
     public void pointerPressed(MouseEvent e) {
@@ -138,7 +141,6 @@ public class ConnectingView implements GameView, IMessageHandler {
                 ttLoadingCircle.getHeight(), 
                 rotate);
         
-        GameEngine.writer.Render("...Connecting... ", 10, 10, 0.5f, 0.5f, 0.8f, 0.1f, 0.1f);
+        GameEngine.writer.Render("...Connecting... ", 10, 10, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f);
     }
-
 }

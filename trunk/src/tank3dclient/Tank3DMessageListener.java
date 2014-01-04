@@ -1,6 +1,8 @@
 package tank3dclient;
 
+import java.util.ArrayList;
 import java.util.Properties;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -15,6 +17,8 @@ import javax.jms.TopicSubscriber;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import myjogl.gameview.GameView;
 
 public class Tank3DMessageListener implements MessageListener {
 
@@ -31,6 +35,7 @@ public class Tank3DMessageListener implements MessageListener {
 	
 	private static Tank3DMessageListener s_instance = null;
 	
+	
 	public static Tank3DMessageListener getInstance() {
 		if(s_instance == null) {
 			s_instance = new Tank3DMessageListener();
@@ -39,9 +44,10 @@ public class Tank3DMessageListener implements MessageListener {
 		return s_instance;
 	}
 	
+	
 	private Tank3DMessageListener() {
-		
 	}
+	
 	
 	@Override
 	public void onMessage(Message arg0) {
@@ -49,7 +55,6 @@ public class Tank3DMessageListener implements MessageListener {
 			ObjectMessage objectMessage = (ObjectMessage) arg0;
 			Tank3DMessage message = (Tank3DMessage)objectMessage.getObject();
 
-			// Notify to UI
 			if(m_messageHandler != null) {
 				m_messageHandler.onReceiveMessage(message);
 			}
@@ -58,6 +63,7 @@ public class Tank3DMessageListener implements MessageListener {
 		}
 	}
 
+	
 	public void stopConnection() {
 		try {
 			m_topicConnection.stop();
@@ -65,6 +71,7 @@ public class Tank3DMessageListener implements MessageListener {
 			System.err.println("Can not stop connection");
 		}
 	}
+	
 	
 	public void startThread() {
 		try {

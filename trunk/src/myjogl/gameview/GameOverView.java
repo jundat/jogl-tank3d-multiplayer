@@ -38,15 +38,21 @@ public class GameOverView implements GameView {
     boolean isSliding = true;
     
     private int whoLose = 0;
+    private boolean isOnline = false;
     
     private int menuItemCounter = 1;
     private int MAX_MENU_ITEM_COUNTER = 1;
 
-    /**
-     * 
-     * @param mainGameView: parent view
-     * @param whoLose : =-1: single player game, = 0: player lose, = 1: opponent lose
-     */
+    public GameOverView(MainGameView2Offline mainGameView, int whoLose, boolean isOnline) {
+        this.mainGameView = mainGameView;
+        mainGameView.isPause = true;
+        
+        time = 0;
+        
+        this.whoLose = whoLose;
+        this.isOnline = isOnline;
+    }
+    
     public GameOverView(MainGameView2Offline mainGameView, int whoLose) {
         this.mainGameView = mainGameView;
         mainGameView.isPause = true;
@@ -54,6 +60,7 @@ public class GameOverView implements GameView {
         time = 0;
         
         this.whoLose = whoLose;
+        this.isOnline = false;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -68,9 +75,9 @@ public class GameOverView implements GameView {
                     itMenu.setIsClick(true);
                     GameEngine.sClick.play();
                     //
-                    GameEngine.getInst().attach(new MenuView());
-                    GameEngine.getInst().detach(mainGameView);
-                    GameEngine.getInst().detach(this);
+                    GameEngine.getInstance().attach(new MenuView());
+                    GameEngine.getInstance().detach(mainGameView);
+                    GameEngine.getInstance().detach(this);
                     break;
 
                 case 1:
@@ -80,7 +87,7 @@ public class GameOverView implements GameView {
                         //
                         mainGameView.isPause = false;
                         mainGameView.loadLevel(Global.level);
-                        GameEngine.getInst().detach(this);
+                        GameEngine.getInstance().detach(this);
                     }
                     break;
             }
@@ -145,16 +152,16 @@ public class GameOverView implements GameView {
             itMenu.setIsClick(true);
             GameEngine.sClick.play();
             //
-            GameEngine.getInst().attach(new MenuView());
-            GameEngine.getInst().detach(mainGameView);
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().attach(new MenuView());
+            GameEngine.getInstance().detach(mainGameView);
+            GameEngine.getInstance().detach(this);
         } else if (itRetry.contains(e.getX(), e.getY())) {
             itRetry.setIsClick(true);
             GameEngine.sClick.play();
             //
             mainGameView.isPause = false;
             mainGameView.loadLevel(Global.level);
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().detach(this);
         }
     }
 
@@ -172,7 +179,7 @@ public class GameOverView implements GameView {
         itRetry.setIsOver(true);
 
         //
-        GameEngine.getInst().saveHighscore();
+        GameEngine.getInstance().saveHighscore();
 
         //sound
         GameEngine.sGameOver.play();
@@ -202,19 +209,28 @@ public class GameOverView implements GameView {
         Renderer.Render(ttBg, pBg.x, pBg.y * delta);
         //
         itMenu.SetPosition(rectMenu.x, (int) (rectMenu.y * delta));
-        itRetry.SetPosition(rectRetry.x, (int) (rectRetry.y * delta));
         itMenu.Render();
+        itRetry.SetPosition(rectRetry.x, (int) (rectRetry.y * delta));
         itRetry.Render();
         
         if(whoLose == -1) { //single player
             GameEngine.writer.Render("GAME", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
             GameEngine.writer.Render("OVER", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
         } else if(whoLose == 0) { //player lose
-            GameEngine.writer.Render("RIGHT >>", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
-            GameEngine.writer.Render("WIN :D", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
-        } else if(whoLose == 1) {
-            GameEngine.writer.Render("<< LEFT", pGame.x + 30, pGame.y * delta, 0.9f, 0.9f);
-            GameEngine.writer.Render("WIN :D", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        	
+        	if(isOnline == false) {
+        		GameEngine.writer.Render("RIGHT >>", pGame.x + 10, pGame.y * delta, 0.9f, 0.9f);
+        		GameEngine.writer.Render("WIN :D", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        	} else {
+        		GameEngine.writer.Render("You lose!", pGame.x - 30, pGame.y * delta, 0.9f, 0.9f);
+        	}
+        } else if(whoLose == 1) { //player win
+        	if(isOnline == false) {
+        		GameEngine.writer.Render("<< LEFT", pGame.x + 10, pGame.y * delta, 0.9f, 0.9f);
+        		GameEngine.writer.Render("WIN :D", pOver.x + 30, pOver.y * delta, 0.9f, 0.9f);
+        	} else {
+        		GameEngine.writer.Render("You win!", pGame.x - 20, pGame.y * delta, 0.9f, 0.9f);
+        	}
         }
         
         GameEngine.writer.Render("MENU", rectMenu.x + 53, (rectMenu.y + 16) * delta, 0.85f, 0.85f);
