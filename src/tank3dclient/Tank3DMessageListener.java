@@ -1,6 +1,5 @@
 package tank3dclient;
 
-import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.jms.JMSException;
@@ -16,9 +15,6 @@ import javax.jms.TopicSession;
 import javax.jms.TopicSubscriber;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import myjogl.gameview.GameView;
 
 public class Tank3DMessageListener implements MessageListener {
 
