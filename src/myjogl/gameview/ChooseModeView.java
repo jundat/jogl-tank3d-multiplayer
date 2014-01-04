@@ -50,15 +50,15 @@ public class ChooseModeView implements GameView {
     private void ChooseAbout() {
         itAbout.setIsClick(false);
         preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Offline()));
-        GameEngine.getInst().detach(this);
+        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Offline()));
+        GameEngine.getInstance().detach(this);
     }
     
     private void ChoosePlay() {
         itPlay.setIsClick(true);
         preloadMainGame();
-        GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView1Player()));
-        GameEngine.getInst().detach(this);
+        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView1Player()));
+        GameEngine.getInstance().detach(this);
     }
     
     private void ChooseExit() {
@@ -67,14 +67,14 @@ public class ChooseModeView implements GameView {
         //preloadMainGame();
         //GameEngine.getInst().attach(new LoadingView((GameView) new MainGameView2Online()));
         
-        GameEngine.getInst().attach(new ConnectingView());
-        GameEngine.getInst().detach(this);
+        GameEngine.getInstance().attach(new ConnectingView());
+        GameEngine.getInstance().detach(this);
         
     }
     
     private void ChooseEscape() {
-        GameEngine.getInst().attach(new MenuView());
-        GameEngine.getInst().detach(this);
+        GameEngine.getInstance().attach(new MenuView());
+        GameEngine.getInstance().detach(this);
     }
 
     public void keyPressed(KeyEvent e) {

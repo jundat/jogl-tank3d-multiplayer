@@ -60,9 +60,9 @@ public class PauseView implements GameView {
                 case 0:
                     itMenu.setIsClick(true);
                     GameEngine.sClick.play();
-                    GameEngine.getInst().attach(new MenuView());
-                    GameEngine.getInst().detach(mainGameView);
-                    GameEngine.getInst().detach(this);
+                    GameEngine.getInstance().attach(new MenuView());
+                    GameEngine.getInstance().detach(mainGameView);
+                    GameEngine.getInstance().detach(this);
                     break;
 
                 case 1:
@@ -72,7 +72,7 @@ public class PauseView implements GameView {
                         //
                         mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
                         mainGameView.isPause = false;
-                        GameEngine.getInst().detach(this);
+                        GameEngine.getInstance().detach(this);
                     }
                     break;
             }
@@ -155,9 +155,9 @@ public class PauseView implements GameView {
              itRetry.setIsClick(false);
              GameEngine.sClick.play();
              //
-             GameEngine.getInst().attach(new MenuView());
-             GameEngine.getInst().detach(mainGameView);
-             GameEngine.getInst().detach(this);
+             GameEngine.getInstance().attach(new MenuView());
+             GameEngine.getInstance().detach(mainGameView);
+             GameEngine.getInstance().detach(this);
         }
 
         if (itRetry.contains(e.getX(), e.getY())) {
@@ -167,7 +167,7 @@ public class PauseView implements GameView {
             //
             mainGameView.sBackground.setVolume(Sound.MAX_VOLUME);
             mainGameView.isPause = false;
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().detach(this);
         }
     }
 
@@ -185,7 +185,7 @@ public class PauseView implements GameView {
         itRetry.setIsOver(true);
 
         //
-        GameEngine.getInst().saveHighscore();
+        GameEngine.getInstance().saveHighscore();
     }
 
     public void unload() {

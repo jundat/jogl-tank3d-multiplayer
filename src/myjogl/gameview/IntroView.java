@@ -49,8 +49,8 @@ public class IntroView implements GameView {
     public void keyReleased(KeyEvent e) {
         if (sound.clip.getMicrosecondPosition() >= endLight1) {
             GameEngine.sClick.play();
-            GameEngine.getInst().attach(new MenuView());
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().attach(new MenuView());
+            GameEngine.getInstance().detach(this);
         }
     }
 
@@ -63,8 +63,8 @@ public class IntroView implements GameView {
     public void pointerReleased(MouseEvent e) {        
         if (sound.clip.getMicrosecondPosition() >= endLight1) {
             GameEngine.sClick.play();
-        	GameEngine.getInst().attach(new MenuView());
-            GameEngine.getInst().detach(this);
+        	GameEngine.getInstance().attach(new MenuView());
+            GameEngine.getInstance().detach(this);
         }
     }
 

@@ -64,8 +64,8 @@ public class LoadingView implements GameView {
         
         if (currentLoad == 0 && isCompleted == false) {
             isCompleted = true;
-            GameEngine.getInst().attach(loadView);
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().attach(loadView);
+            GameEngine.getInstance().detach(this);
         }
     }
 
@@ -80,6 +80,6 @@ public class LoadingView implements GameView {
         currentLoad = ResourceManager.getInst().GetNumberPreload();
         float percent = (float) (beforeLoad - currentLoad) / (float)beforeLoad;
         
-        GameEngine.writer.Render("...loading... " + (int) (100 * percent) + " %", 10, 10, 0.5f, 0.5f, 0.8f, 0.1f, 0.1f);
+        GameEngine.writer.Render("...loading... " + (int) (100 * percent) + " %", 10, 10, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f);
     }
 }

@@ -54,7 +54,7 @@ public class MainGameView1Player extends MainGameView2Offline {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE && bSliding == false) {
             GameEngine.sClick.play();
             this.isPause = true;
-            GameEngine.getInst().attach(new PauseView(this));
+            GameEngine.getInstance().attach(new PauseView(this));
         }
 
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -266,7 +266,7 @@ public class MainGameView1Player extends MainGameView2Offline {
 
     @Override
     public void unload() {
-        GameEngine.getInst().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        GameEngine.getInstance().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     long timeCreateAi = System.currentTimeMillis();
@@ -330,7 +330,7 @@ public class MainGameView1Player extends MainGameView2Offline {
 
     public void checkGameOver() {
         if (playerLife <= 0) { //gameover
-            GameEngine.getInst().attach(new GameOverView(this, -1));
+            GameEngine.getInstance().attach(new GameOverView(this, -1));
         } else { // reset new life
 
             for (Object o : TankMap.getInst().listTankPosition) {
@@ -364,7 +364,7 @@ public class MainGameView1Player extends MainGameView2Offline {
     public void checkLevelComplete() {
         if (lastTanks <= 0 && currentTank <= 0) { //complete
             GameEngine.sClick.play();
-            GameEngine.getInst().attach(new NextLevelView(this));
+            GameEngine.getInstance().attach(new NextLevelView(this));
         }
     }
 
@@ -436,7 +436,7 @@ public class MainGameView1Player extends MainGameView2Offline {
                         //System.out.println("COLLISION! ");
                         //System.out.println("BULLET: " + bullet.getBound().toString());
                         //System.out.println("BOSS: " + boss.getBound().toString());
-                        GameEngine.getInst().attach(new GameOverView(this, -1));
+                        GameEngine.getInstance().attach(new GameOverView(this, -1));
                         return;
                     }
                 }
@@ -501,7 +501,7 @@ public class MainGameView1Player extends MainGameView2Offline {
                         playerBoss.isAlive = false;
                         playerBoss.explode();
                         this.isPause = true;
-                        GameEngine.getInst().attach(new GameOverView(this, -1));
+                        GameEngine.getInstance().attach(new GameOverView(this, -1));
                         return;
                     }
                 }

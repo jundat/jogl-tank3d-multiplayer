@@ -44,7 +44,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
     private GameEngine() {
     }
 
-    public static GameEngine getInst() {
+    public static GameEngine getInstance() {
         if (instance == null) {
             instance = new GameEngine();
         }
@@ -148,6 +148,17 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         }
     }
 
+    public void detachAll() {
+    	paused = true;
+    	
+    	for (Object o : this.views) {
+            GameView view = (GameView) o;
+            view.unload();
+        }
+    	
+    	this.views.clear();
+    }
+    
     public void display() {
         for (Object o : this.views) {
             GameView view = (GameView) o;

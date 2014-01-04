@@ -64,7 +64,7 @@ public class MenuView implements GameView {
 
                 case 2:
                     itExit.setIsClick(false);
-                    GameEngine.getInst().exit();
+                    GameEngine.getInstance().exit();
                     break;
             }
         }
@@ -72,7 +72,7 @@ public class MenuView implements GameView {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             GameEngine.sClick.play();
             itExit.setIsOver(true);
-            GameEngine.getInst().exit();
+            GameEngine.getInstance().exit();
         }
         
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
@@ -169,7 +169,7 @@ public class MenuView implements GameView {
 
         if (itExit.contains(e.getX(), e.getY())) {
             itExit.setIsClick(false);
-            GameEngine.getInst().exit();
+            GameEngine.getInstance().exit();
 
             //sound
             GameEngine.sClick.play();
@@ -200,8 +200,8 @@ public class MenuView implements GameView {
     }
 
     private void gotoMainGame() {
-        GameEngine.getInst().attach(new ChooseModeView());
-        GameEngine.getInst().detach(this);
+        GameEngine.getInstance().attach(new ChooseModeView());
+        GameEngine.getInstance().detach(this);
     }
 
     public void update(long elapsedTime) {

@@ -1,14 +1,19 @@
 package myjogl.tank3d;
 
 import com.sun.opengl.util.FPSAnimator;
+
 import java.awt.BorderLayout;
 import java.awt.Frame;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
+
+import tank3dclient.Tank3DMessage;
+import tank3dclient.Tank3DMessageListener;
 import myjogl.GameEngine;
 import myjogl.Global;
 import myjogl.utils.FullscreenSetting;
@@ -59,7 +64,7 @@ public class Tank3D implements GLEventListener {
         canvas = new GLCanvas();
         canvas.setAutoSwapBufferMode(true);
         
-        GameEngine engine = GameEngine.getInst();
+        GameEngine engine = GameEngine.getInstance();
         engine.init(this);
         
         canvas.addGLEventListener(this);
@@ -109,7 +114,7 @@ public class Tank3D implements GLEventListener {
         //mycode
         this.loadResource(drawable);
         
-        GameEngine engine = GameEngine.getInst();
+        GameEngine engine = GameEngine.getInstance();
         engine.loadResource(drawable);
     }
 
@@ -146,7 +151,7 @@ public class Tank3D implements GLEventListener {
         // Reset the current matrix to the "identity"
         gl.glLoadIdentity();
 
-        GameEngine.getInst().run(drawable);
+        GameEngine.getInstance().run(drawable);
         
         // Flush all drawing operations to the graphics card
         gl.glFlush();
@@ -160,7 +165,12 @@ public class Tank3D implements GLEventListener {
     }
 
     public void unloadResource() {
-        
+		Tank3DMessageListener.getInstance().setMessageHandler(null);
+		
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_QUIT;
+		Tank3DMessageListener.getInstance().sendMessage(newmessage);
     }
     
     public void exit(){

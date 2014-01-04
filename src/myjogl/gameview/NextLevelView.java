@@ -60,9 +60,9 @@ public class NextLevelView implements GameView {
                     itMenu.setIsClick(true);
                     GameEngine.sClick.play();
                     //
-                    GameEngine.getInst().attach(new MenuView());
-                    GameEngine.getInst().detach(mainGameView);
-                    GameEngine.getInst().detach(this);
+                    GameEngine.getInstance().attach(new MenuView());
+                    GameEngine.getInstance().detach(mainGameView);
+                    GameEngine.getInstance().detach(this);
                     break;
 
                 case 1:
@@ -72,7 +72,7 @@ public class NextLevelView implements GameView {
                         //
                         mainGameView.isPause = false;
                         mainGameView.loadLevel(Global.level + 1);
-                        GameEngine.getInst().detach(this);
+                        GameEngine.getInstance().detach(this);
                     }
                     break;
             }
@@ -141,16 +141,16 @@ public class NextLevelView implements GameView {
             itMenu.setIsClick(true);
             GameEngine.sClick.play();
             //
-            GameEngine.getInst().attach(new MenuView());
-            GameEngine.getInst().detach(mainGameView);
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().attach(new MenuView());
+            GameEngine.getInstance().detach(mainGameView);
+            GameEngine.getInstance().detach(this);
         } else if (itRetry.contains(e.getX(), e.getY())) {
             itRetry.setIsClick(true);
             GameEngine.sClick.play();
             //
             mainGameView.isPause = false;
             mainGameView.loadLevel(Global.level + 1);
-            GameEngine.getInst().detach(this);
+            GameEngine.getInstance().detach(this);
         }
     }
 
@@ -168,7 +168,7 @@ public class NextLevelView implements GameView {
         itRetry.setIsOver(true);
 
         //
-        GameEngine.getInst().saveHighscore();
+        GameEngine.getInstance().saveHighscore();
     }
 
     public void unload() {

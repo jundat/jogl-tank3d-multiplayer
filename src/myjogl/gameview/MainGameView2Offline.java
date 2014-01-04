@@ -124,7 +124,7 @@ public class MainGameView2Offline implements GameView {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE && bSliding == false) {
             GameEngine.sClick.play();
             this.isPause = true;
-            GameEngine.getInst().attach(new PauseView(this));
+            GameEngine.getInstance().attach(new PauseView(this));
         }
 
         //playerTank
@@ -287,13 +287,13 @@ public class MainGameView2Offline implements GameView {
     }
 
     public void unload() {
-        GameEngine.getInst().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        GameEngine.getInstance().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     public void checkPlayerLose() {
         if (playerLife <= 0) { //player lose
             GameEngine.sFire.clone().play();
-            GameEngine.getInst().attach(new GameOverView(this, 0));
+            GameEngine.getInstance().attach(new GameOverView(this, 0));
         } else { // reset new life
             for (Object o : TankMap.getInst().listTankPosition) {
                 Vector3 v = (Vector3) o;
@@ -319,7 +319,7 @@ public class MainGameView2Offline implements GameView {
     public void checkOpponentLose() {
         if (opponentLife <= 0) { //opponent lose
             GameEngine.sFire.clone().play();
-            GameEngine.getInst().attach(new GameOverView(this, 1));
+            GameEngine.getInstance().attach(new GameOverView(this, 1));
         } else { // reset new life
 
             for (Object o : TankMap.getInst().listTankAiPosition) {
@@ -393,7 +393,7 @@ public class MainGameView2Offline implements GameView {
                         playerBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 0));
+                        GameEngine.getInstance().attach(new GameOverView(this, 0));
                         return;
                     }
                 }
@@ -406,7 +406,7 @@ public class MainGameView2Offline implements GameView {
                         opponentBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 1));
+                        GameEngine.getInstance().attach(new GameOverView(this, 1));
                         return;
                     }
                 }
@@ -456,7 +456,7 @@ public class MainGameView2Offline implements GameView {
                         playerBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 0));
+                        GameEngine.getInstance().attach(new GameOverView(this, 0));
                         return;
                     }
                 }
@@ -469,7 +469,7 @@ public class MainGameView2Offline implements GameView {
                         opponentBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 1));
+                        GameEngine.getInstance().attach(new GameOverView(this, 1));
                         return;
                     }
                 }

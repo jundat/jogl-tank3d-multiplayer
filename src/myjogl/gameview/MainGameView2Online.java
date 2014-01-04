@@ -4,24 +4,34 @@
  */
 package myjogl.gameview;
 
-import myjogl.particles.ParticalManager;
-
-import java.awt.*;
+import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import javax.jms.JMSException;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
-import javax.naming.NamingException;
 
+import myjogl.GameEngine;
+import myjogl.Global;
+import myjogl.KeyboardState;
+import myjogl.gameobjects.Boss;
+import myjogl.gameobjects.CDirections;
+import myjogl.gameobjects.CRectangle;
+import myjogl.gameobjects.Tank;
+import myjogl.gameobjects.TankBullet;
+import myjogl.particles.Explo;
+import myjogl.particles.ParticalManager;
+import myjogl.utils.Camera;
+import myjogl.utils.CameraFo;
+import myjogl.utils.ResourceManager;
+import myjogl.utils.Sound;
+import myjogl.utils.TankMap;
+import myjogl.utils.Vector3;
+import myjogl.utils.Writer;
 import tank3dclient.IMessageHandler;
 import tank3dclient.Tank3DMessage;
 import tank3dclient.Tank3DMessageListener;
-import myjogl.*;
-import myjogl.utils.*;
-import myjogl.gameobjects.*;
-import myjogl.particles.Explo;
 
 /**
  *
@@ -31,7 +41,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 	
 	private Tank3DMessageListener m_listener;
 	
-	public boolean isLoaded = false;
+	private boolean isLoaded = false;
 	public long m_dt = 0;
 
     public MainGameView2Online() {
@@ -73,8 +83,8 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 				//show lost connection...
 				
 				if (isPause == false) {
-					opponentLife = -1;
-					checkOpponentLose();
+					LostGameView dialog = new LostGameView(this);
+					GameEngine.getInstance().attach(dialog);
 				}
 				break;
 			}
@@ -136,7 +146,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE && bSliding == false) {
             GameEngine.sClick.play();
             this.isPause = true;
-            GameEngine.getInst().attach(new PauseView(this));
+            GameEngine.getInstance().attach(new PauseView(this));
         }
 
         //playerTank
@@ -235,6 +245,11 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 
             if(Global.isHost == false) {
             	TankMap.getInst().SwapTank();
+            	
+            	//life label
+            	Point temp = new Point(pPlayerLife);
+            	pPlayerLife = new Point(pOpponentLife);
+            	pOpponentLife = temp;            	
             }            
             
         	//playerBoss
@@ -286,6 +301,10 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     	
     	this.m_listener = Tank3DMessageListener.getInstance();
     	this.m_listener.setMessageHandler(this);
+    	
+    	//---------------
+    	
+    	pOpponentLife.x += 50;
     	
     	//---------------
     	
@@ -341,14 +360,14 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 		this.m_listener.sendMessage(newmessage);
 		
     	this.m_listener.setMessageHandler(null);
-        GameEngine.getInst().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        GameEngine.getInstance().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     @Override
     public void checkPlayerLose() {
         if (playerLife <= 0) { //player lose
             GameEngine.sFire.clone().play();
-            GameEngine.getInst().attach(new GameOverView(this, 0));
+            GameEngine.getInstance().attach(new GameOverView(this, 0, true));
         } else { // reset new life
             for (Object o : TankMap.getInst().listTankPosition) {
                 Vector3 v = (Vector3) o;
@@ -375,7 +394,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     public void checkOpponentLose() {
         if (opponentLife <= 0) { //opponent lose
             GameEngine.sFire.clone().play();
-            GameEngine.getInst().attach(new GameOverView(this, 1));
+            GameEngine.getInstance().attach(new GameOverView(this, 1, true));
         } else { // reset new life
 
             for (Object o : TankMap.getInst().listTankAiPosition) {
@@ -451,7 +470,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                         playerBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 0));
+                        GameEngine.getInstance().attach(new GameOverView(this, 0, true));
                         return;
                     }
                 }
@@ -464,7 +483,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                         opponentBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 1));
+                        GameEngine.getInstance().attach(new GameOverView(this, 1, true));
                         return;
                     }
                 }
@@ -514,7 +533,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                         playerBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 0));
+                        GameEngine.getInstance().attach(new GameOverView(this, 0, true));
                         return;
                     }
                 }
@@ -527,7 +546,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
                         opponentBoss.isAlive = false;
                         this.isPause = true;
                         GameEngine.sFire.clone().play();
-                        GameEngine.getInst().attach(new GameOverView(this, 1));
+                        GameEngine.getInstance().attach(new GameOverView(this, 1, true));
                         return;
                     }
                 }
@@ -655,9 +674,10 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
             glu.gluLookAt(cameraFo.x, cameraFo.y, cameraFo.z, cameraFo.lookAtX, cameraFo.lookAtY, cameraFo.lookAtZ, cameraFo.upX, cameraFo.upY, cameraFo.upZ);
         } else {
             glu.gluLookAt(
-                    camera.mPos.x, camera.mPos.y, camera.mPos.z,
-                    camera.mView.x, camera.mView.y, camera.mView.z,
-                    camera.mUp.x, camera.mUp.y, camera.mUp.z);
+                camera.mPos.x, camera.mPos.y, camera.mPos.z,
+                camera.mView.x, camera.mView.y, camera.mView.z,
+                camera.mUp.x, camera.mUp.y, camera.mUp.z
+        		);
         }
 
         //m_skybox.Render(camera.mPos.x, camera.mPos.y, camera.mPos.z);
@@ -673,6 +693,8 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         ParticalManager.getInstance().Draw(gl, camera);
 
         float scale = 0.7f;
+        playerLife = (playerLife < 0) ? 0 : playerLife;
+        opponentLife = (opponentLife < 0) ? 0 : opponentLife;
         writer.Render("LIFE " + playerLife, pPlayerLife.x, pPlayerLife.y, scale, scale, 1, 1, 1);
         writer.Render("LIFE " + opponentLife, pOpponentLife.x, pOpponentLife.y, scale, scale, 1, 1, 1);
     }
