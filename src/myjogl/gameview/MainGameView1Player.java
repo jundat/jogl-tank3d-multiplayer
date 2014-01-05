@@ -118,8 +118,7 @@ public class MainGameView1Player extends MainGameView2Offline {
     public void pointerReleased(MouseEvent e) {
     }
 
-    @Override
-    public void handleInput(long dt) {
+    private void handleInput(long dt) {
         if (isPause) {
             return;
         }

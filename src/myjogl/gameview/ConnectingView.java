@@ -55,25 +55,27 @@ public class ConnectingView implements GameView, IMessageHandler {
 		if(message.ClientId != Global.clientId) {
 			switch(message.Cmd) {
 				case Tank3DMessage.CMD_FIND_HOST: //you are host
+					m_listener.setMessageHandler(null);
+					Global.isHost = true;
+					
 					Tank3DMessage newmessage = new Tank3DMessage();
 					newmessage.ClientId = Global.clientId;
 					newmessage.Cmd = Tank3DMessage.CMD_IM_HOST;
 					this.m_listener.sendMessage(newmessage);
 					
-					Global.isHost = true;
 					preloadMainGame();
 			        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
 			        GameEngine.getInstance().detach(this);
 					break;
 					
 				case Tank3DMessage.CMD_IM_HOST:
+					m_listener.setMessageHandler(null);
 					
 					Global.isHost = false;
 					preloadMainGame();
 			        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
 			        GameEngine.getInstance().detach(this);
 					break;
-					
 			}
 		}
 	}

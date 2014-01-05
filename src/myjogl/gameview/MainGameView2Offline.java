@@ -65,7 +65,7 @@ public class MainGameView2Offline implements GameView {
         super();
     }
 
-    public void opponentTankFire() {
+    private void opponentTankFire() {
         if (opponentTank.isAlive()) {
             if (opponentTank.fire()) {
                 GameEngine.sFire.clone().setVolume(6.0f);
@@ -74,7 +74,7 @@ public class MainGameView2Offline implements GameView {
         }
     }
     
-    public void opponentHandleInput(long dt) {
+    private void opponentHandleInput(long dt) {
         KeyboardState state = KeyboardState.getState();
         
         //up
@@ -152,7 +152,7 @@ public class MainGameView2Offline implements GameView {
     public void pointerReleased(MouseEvent e) {
     }
 
-    public void handleInput(long dt) {
+    private void handleInput(long dt) {
         if (isPause) {
             return;
         }

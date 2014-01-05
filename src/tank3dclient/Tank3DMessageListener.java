@@ -15,6 +15,7 @@ import javax.jms.TopicSession;
 import javax.jms.TopicSubscriber;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.swing.JOptionPane;
 
 public class Tank3DMessageListener implements MessageListener {
 
@@ -71,32 +72,50 @@ public class Tank3DMessageListener implements MessageListener {
 	
 	public void startThread() {
 		try {
+
+			//JOptionPane.showMessageDialog(null, "Start connect in Tank3DListener");
+		
 			Properties properties = new Properties();
 			properties.setProperty("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
 			properties.setProperty("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
 			properties.setProperty("java.naming.provider.url", "iiop://localhost:3700");
 			
+			//JOptionPane.showMessageDialog(null, "1 in Tank3DListener");
+			
 			Context initialContext = new InitialContext(properties);
+
+			//JOptionPane.showMessageDialog(null, "2 in Tank3DListener");
 			
 			// Lookup topic SUBSCRIBE_TOPIC and PUBLISH_TOPIC
 			m_subscribeTopic = (Topic)initialContext.lookup(SUBSCRIBE_TOPIC);
 			m_publishTopic = (Topic)initialContext.lookup(PUBLISH_TOPIC);
+
+			//JOptionPane.showMessageDialog(null, "3 in Tank3DListener");
 			
 			// Lookup topic factory
 			TopicConnectionFactory topicConnectionFactory = (TopicConnectionFactory)initialContext.lookup(CONNECTION_FACTORY); 
+
+			//JOptionPane.showMessageDialog(null, "4 in Tank3DListener");
 			
 			// Create TopicConnection from topicConnectionFactory
 			m_topicConnection = topicConnectionFactory.createTopicConnection();
 			m_topicConnection.start();
+
+			//JOptionPane.showMessageDialog(null, "5 in Tank3DListener");
 			
 			// Subscribe
 			TopicSession subscribeSession = m_topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 			TopicSubscriber topicSubscriber = subscribeSession.createSubscriber(m_subscribeTopic);
 			topicSubscriber.setMessageListener(this);
+
+			//JOptionPane.showMessageDialog(null, "6 in Tank3DListener");
 			
 			// Publish
 			m_publishSession = m_topicConnection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 			m_topicPublisher = m_publishSession.createPublisher(m_publishTopic);
+			
+			//JOptionPane.showMessageDialog(null, "7 in Tank3DListener");
+		
 			
 			if(m_messageHandler != null) {
 				m_messageHandler.onConnected();

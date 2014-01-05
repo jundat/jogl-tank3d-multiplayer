@@ -26,7 +26,6 @@ public class Tank3DMessage implements Serializable {
 	
 	public int ClientId = 0;
 	public int Cmd = CMD_NONE;
-	public int PressKey = KeyEvent.VK_HOME;
 	public Vector3 Position = new Vector3();
 	public int Direction = CDirections.LEFT;
 	
@@ -34,6 +33,6 @@ public class Tank3DMessage implements Serializable {
 	}
 	
 	public String toString() {
-		return "(" + ClientId + "," + Cmd + "," + PressKey + "," + Position + "," + Direction + ")";		
+		return "(" + ClientId + "," + Cmd + "," +  Position + "," + Direction + ")";		
 	}
 }

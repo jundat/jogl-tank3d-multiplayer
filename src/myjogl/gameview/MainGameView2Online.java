@@ -50,17 +50,6 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 
     //---------------------------------
     
-    public void startConnection() {
-		m_listener = Tank3DMessageListener.getInstance();
-		m_listener.setMessageHandler(this);
-		
-		m_listener.startConnection();
-	}
-
-	public void sendMessage(Tank3DMessage message) {
-		m_listener.sendMessage(message);
-	}
-
 	@Override
 	public void onConnected() {
 		// TODO Auto-generated method stub
@@ -72,29 +61,19 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 		if(message.ClientId != Global.clientId) {
 			switch(message.Cmd) {
 			case Tank3DMessage.CMD_FIRE:
-				opponentTankFire();
+				receiveOpponentTankFire();
 				break;
 				
 			case Tank3DMessage.CMD_MOVE:
-				opponentTankMove(message.Position, message.Direction);
+				receiveOpponentTankMove(message.Position, message.Direction);
 				break;
 				
 			case Tank3DMessage.CMD_QUIT:
-				if(isPause == true) {
-					GameEngine.getInstance().detachLast();
-					isPause = false;
-				}
-				LostGameView dialog = new LostGameView(this);
-				GameEngine.getInstance().attach(dialog);
+				receiveOpponentTankQuit();
 				break;
 				
 			case Tank3DMessage.CMD_RESTART:
-				if(isPause == true) {
-					GameEngine.getInstance().detachLast();
-					isPause = false;
-				}
-				GameEngine.getInstance().detachLast();
-		    	this.loadLevel(Global.level);
+				receiveOpponentTankRestart();
 				break;
 			}
 		}
@@ -102,8 +81,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 	
 	//---------------------------------
 	
-    @Override
-    public void opponentTankFire() {
+	private void receiveOpponentTankFire() {
     	if (isLoaded == false) return;
     	
         if (opponentTank.isAlive()) {
@@ -114,11 +92,29 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
         }
     }
     
-    public void opponentTankMove(Vector3 position, int direction) {
+    private void receiveOpponentTankMove(Vector3 position, int direction) {
     	if (isLoaded == false) return;
     	
     	opponentTank.setPosition(position);
     	opponentTank.setDirection(direction);
+    }
+    
+    private void receiveOpponentTankQuit() {
+    	if(isPause == true) {
+			GameEngine.getInstance().detachLast();
+			isPause = false;
+		}
+		LostGameView dialog = new LostGameView(this);
+		GameEngine.getInstance().attach(dialog);
+    }
+    
+    private void receiveOpponentTankRestart() {
+    	if(isPause == true) {
+			GameEngine.getInstance().detachLast();
+			isPause = false;
+		}
+		GameEngine.getInstance().detachLast();
+    	this.loadLevel(Global.level);
     }
     
     //---------------------------------
@@ -136,6 +132,20 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 		newmessage.Cmd = Tank3DMessage.CMD_MOVE;
 		newmessage.Position = position;
 		newmessage.Direction = direction;
+		this.m_listener.sendMessage(newmessage);
+    }
+    
+    private void sendPlayerQuit() {
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_QUIT;
+		this.m_listener.sendMessage(newmessage);
+    }
+    
+    private void sendPlayerRestart() {
+    	Tank3DMessage newmessage = new Tank3DMessage();
+		newmessage.ClientId = Global.clientId;
+		newmessage.Cmd = Tank3DMessage.CMD_RESTART;
 		this.m_listener.sendMessage(newmessage);
     }
     
@@ -189,8 +199,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     public void pointerReleased(MouseEvent e) {
     }
 
-    @Override
-    public void handleInput(long dt) {
+    private void handleInput(long dt) {
         if (isPause) {
             return;
         }
@@ -249,10 +258,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     	this.isPause = false;
     	this.loadLevel(Global.level);
     	
-    	Tank3DMessage newmessage = new Tank3DMessage();
-		newmessage.ClientId = Global.clientId;
-		newmessage.Cmd = Tank3DMessage.CMD_RESTART;
-		this.m_listener.sendMessage(newmessage);
+    	sendPlayerRestart();
     }
     
     @Override
@@ -381,10 +387,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 
     @Override
     public void unload() {
-    	Tank3DMessage newmessage = new Tank3DMessage();
-		newmessage.ClientId = Global.clientId;
-		newmessage.Cmd = Tank3DMessage.CMD_QUIT;
-		this.m_listener.sendMessage(newmessage);
+    	sendPlayerQuit();
 		
     	this.m_listener.setMessageHandler(null);
         GameEngine.getInstance().tank3d.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
