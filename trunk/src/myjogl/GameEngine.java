@@ -61,7 +61,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         tank3d.canvas.addKeyListener(KeyboardState.getState());
         tank3d.frame.setTitle("Battle City");
         //--------
-        this.attach(new ChooseModeView());
+        this.attach(new IntroView());
     }
 
     public void loadResource(GLAutoDrawable drawable) {
