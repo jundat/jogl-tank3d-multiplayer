@@ -87,8 +87,8 @@ public class IntroView implements GameView {
     }
 
     public void unload() {
-        ResourceManager.getInst().deleteTexture("data/intro/light.png");
-        ResourceManager.getInst().deleteTexture("data/intro/logo.png");
+        //ResourceManager.getInst().deleteTexture("data/intro/light.png");
+        //ResourceManager.getInst().deleteTexture("data/intro/logo.png");
         //ResourceManager.getInst().deleteSound(sound); //gây l?i
     }
 

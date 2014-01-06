@@ -172,7 +172,7 @@ public class NextLevelView implements GameView {
     }
 
     public void unload() {
-        ResourceManager.getInst().deleteTexture("data/common/bg_dialog.png");
+        //ResourceManager.getInst().deleteTexture("data/common/bg_dialog.png");
     }
 
     public void update(long elapsedTime) {
