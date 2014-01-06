@@ -58,7 +58,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
 	
 	@Override
 	public void onReceiveMessage(Tank3DMessage message) {
-		if(message.ClientId != Global.clientId) {
+		if(message.ClientId != Global.clientId && message.OpponentClientId == Global.clientId) {
 			switch(message.Cmd) {
 			case Tank3DMessage.CMD_FIRE:
 				receiveOpponentTankFire();
@@ -101,7 +101,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     
     private void receiveOpponentTankQuit() {
     	if(isPause == true) {
-			GameEngine.getInstance().detachLast();
+			GameEngine.getInstance().detachTopDialog();
 			isPause = false;
 		}
 		LostGameView dialog = new LostGameView(this);
@@ -110,10 +110,10 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     
     private void receiveOpponentTankRestart() {
     	if(isPause == true) {
-			GameEngine.getInstance().detachLast();
+			GameEngine.getInstance().detachTopDialog();
 			isPause = false;
 		}
-		GameEngine.getInstance().detachLast();
+		GameEngine.getInstance().detachTopDialog();
     	this.loadLevel(Global.level);
     }
     
@@ -122,6 +122,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     private void sendPlayerFire() {
     	Tank3DMessage newmessage = new Tank3DMessage();
 		newmessage.ClientId = Global.clientId;
+		newmessage.OpponentClientId = Global.opponentClientId;
 		newmessage.Cmd = Tank3DMessage.CMD_FIRE;
 		this.m_listener.sendMessage(newmessage);
     }
@@ -129,6 +130,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     private void sendPlayerMove(Vector3 position, int direction) {
     	Tank3DMessage newmessage = new Tank3DMessage();
 		newmessage.ClientId = Global.clientId;
+		newmessage.OpponentClientId = Global.opponentClientId;
 		newmessage.Cmd = Tank3DMessage.CMD_MOVE;
 		newmessage.Position = position;
 		newmessage.Direction = direction;
@@ -138,6 +140,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     private void sendPlayerQuit() {
     	Tank3DMessage newmessage = new Tank3DMessage();
 		newmessage.ClientId = Global.clientId;
+		newmessage.OpponentClientId = Global.opponentClientId;
 		newmessage.Cmd = Tank3DMessage.CMD_QUIT;
 		this.m_listener.sendMessage(newmessage);
     }
@@ -145,6 +148,7 @@ public class MainGameView2Online extends MainGameView2Offline implements IMessag
     private void sendPlayerRestart() {
     	Tank3DMessage newmessage = new Tank3DMessage();
 		newmessage.ClientId = Global.clientId;
+		newmessage.OpponentClientId = Global.opponentClientId;
 		newmessage.Cmd = Tank3DMessage.CMD_RESTART;
 		this.m_listener.sendMessage(newmessage);
     }

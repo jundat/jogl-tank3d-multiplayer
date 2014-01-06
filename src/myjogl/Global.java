@@ -35,6 +35,7 @@ public class Global {
     
     public static boolean isHost = true;
     public static int clientId = random.nextInt(10000000);
+    public static int opponentClientId = -1;
     
     
     
