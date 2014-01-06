@@ -9,7 +9,7 @@ import javax.media.opengl.glu.GLU;
 
 /**
  *
- * @author bu0i
+ * @author ThienMy
  */
 public class BoundSphere {
     public Vector3 Position;

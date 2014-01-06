@@ -6,7 +6,7 @@ package myjogl.utils;
 
 /**
  *
- * @author bu0i
+ * @author ThienMy
  */
 public class MatrixUtil {
     public static float M(float[] matrix, int row, int column) {
