@@ -5,12 +5,11 @@
 package myjogl.gameobjects;
 
 import java.util.Random;
+
 import myjogl.Global;
-import static myjogl.gameobjects.Tank.TANK_NORMAL_HIT;
-import static myjogl.gameobjects.Tank.TANK_VELOCITY_FAST;
-import static myjogl.gameobjects.Tank.TANK_VELOCITY_NORMAL;
-import static myjogl.gameobjects.Tank.TANK_VELOCITY_SLOW;
-import myjogl.utils.*;
+import myjogl.utils.GLModel;
+import myjogl.utils.ID;
+import myjogl.utils.ModelLoaderOBJ;
 
 /**
  *
