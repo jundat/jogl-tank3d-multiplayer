@@ -14,7 +14,7 @@ import javax.media.opengl.GLAutoDrawable;
 
 /**
  *
- * @author bu0i
+ * @author ThienMy
  */
 public class ResourceManagerTest {
     

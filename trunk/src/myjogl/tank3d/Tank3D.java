@@ -20,10 +20,8 @@ import myjogl.utils.FullscreenSetting;
 import myjogl.utils.ResourceManager;
 
 /**
- * Tank3D.java <BR> author: Brian Paul (converted to Java by Ron Cemer and Sven
- * Goethel) <P>
  *
- * This version is equal to Brian Paul's version 1.2 1999/10/21
+ * @author Jundat
  */
 public class Tank3D implements GLEventListener {
 

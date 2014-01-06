@@ -7,7 +7,7 @@ package myjogl.utils;
 
 /**
  *
- * @author bu0i
+ * @author ThienMy
  */
 public class MathUtil {
     //

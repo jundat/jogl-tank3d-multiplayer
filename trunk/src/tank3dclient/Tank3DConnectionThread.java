@@ -1,5 +1,9 @@
 package tank3dclient;
 
+/**
+ *
+ * @author Jundat
+ */
 public class Tank3DConnectionThread extends Thread {
 	
 	private Tank3DMessageListener m_listener;

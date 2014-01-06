@@ -15,8 +15,11 @@ import javax.jms.TopicSession;
 import javax.jms.TopicSubscriber;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.swing.JOptionPane;
 
+/**
+ * Create connection, listen message, translate message
+ * @author Jundat
+ */
 public class Tank3DMessageListener implements MessageListener {
 
 	public String SUBSCRIBE_TOPIC = "jms/Topic01";

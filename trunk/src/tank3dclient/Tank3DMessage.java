@@ -9,7 +9,6 @@ import myjogl.utils.Vector3;
 /**
  * Contain data to send over network
  * @author Jundat
- *
  */
 public class Tank3DMessage implements Serializable {
 	
