@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.media.opengl.GLAutoDrawable;
+import javax.swing.text.View;
 
 import myjogl.gameview.IntroView;
 import myjogl.tank3d.Tank3D;
@@ -61,7 +62,7 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         tank3d.canvas.addKeyListener(KeyboardState.getState());
         tank3d.frame.setTitle("Battle City");
         //--------
-        this.attach(new IntroView());
+        this.attach(new ChooseModeView());
     }
 
     public void loadResource(GLAutoDrawable drawable) {
@@ -148,10 +149,15 @@ public class GameEngine implements KeyListener, MouseListener, MouseMotionListen
         }
     }
 
-    public void detachLast() {
+    public void detachTopDialog() {
     	if (!this.views.isEmpty()) {
-            GameView view = (GameView) this.views.get(this.views.size() - 1);
-            this.detach(view);
+    		GameView view = (GameView) this.views.get(this.views.size() - 1);
+    		
+    		if(view.getClass().getName() == "myjogl.gameview.PauseView" ||
+    				view.getClass().getName() == "myjogl.gameview.LostGameView" || 
+    				view.getClass().getName() == "myjogl.gameview.GameOverView") {
+	            this.detach(view);
+    		}
         }
     }
     

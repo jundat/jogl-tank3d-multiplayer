@@ -28,6 +28,9 @@ public class ConnectingView implements GameView, IMessageHandler {
 	
     private float rotate = 0.0f;
     private Texture ttLoadingCircle;
+    
+    private boolean m_isFoundHost = false;
+    private boolean m_isFoundClient = false;
 
     public ConnectingView() {
         System.out.println("Go to connecting view ---------------------------------");
@@ -51,30 +54,58 @@ public class ConnectingView implements GameView, IMessageHandler {
 	
 	@Override
 	public void onReceiveMessage(Tank3DMessage message) {
+		Tank3DMessage newmessage;
 		
 		if(message.ClientId != Global.clientId) {
 			switch(message.Cmd) {
-				case Tank3DMessage.CMD_FIND_HOST: //you are host
-					m_listener.setMessageHandler(null);
-					Global.isHost = true;
+				case Tank3DMessage.CMD_FIND_HOST: //reply client, choose client
+					//m_listener.setMessageHandler(null);
+					//Global.opponentClientId = message.ClientId;
+					//Global.isHost = true;
 					
-					Tank3DMessage newmessage = new Tank3DMessage();
+					newmessage = new Tank3DMessage();
 					newmessage.ClientId = Global.clientId;
+					newmessage.OpponentClientId = message.ClientId; //choose client will play with you
 					newmessage.Cmd = Tank3DMessage.CMD_IM_HOST;
 					this.m_listener.sendMessage(newmessage);
 					
-					preloadMainGame();
-			        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
-			        GameEngine.getInstance().detach(this);
+					//preloadMainGame();
+			        //GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
+			        //GameEngine.getInstance().detach(this);
 					break;
 					
-				case Tank3DMessage.CMD_IM_HOST:
-					m_listener.setMessageHandler(null);
+				case Tank3DMessage.CMD_IM_HOST: //reply from host, choose client
+					if(message.OpponentClientId == Global.clientId && m_isFoundHost == false) { //you are chose to play with host						
+						m_isFoundHost = true;
+						
+						m_listener.setMessageHandler(null);
+						Global.opponentClientId = message.ClientId;
+						Global.isHost = false;
+						
+						newmessage = new Tank3DMessage();
+						newmessage.ClientId = Global.clientId;
+						newmessage.OpponentClientId = message.ClientId; //choose client will play with you
+						newmessage.Cmd = Tank3DMessage.CMD_FOUND_HOST;
+						this.m_listener.sendMessage(newmessage);
+						
+						preloadMainGame();
+				        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
+				        GameEngine.getInstance().detach(this);
+					}
+					break;
 					
-					Global.isHost = false;
-					preloadMainGame();
-			        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
-			        GameEngine.getInstance().detach(this);
+				case Tank3DMessage.CMD_FOUND_HOST: //reply from client, choose host
+					if(message.OpponentClientId == Global.clientId && m_isFoundClient == false) {
+						m_isFoundClient = true;
+						
+						m_listener.setMessageHandler(null);
+						Global.opponentClientId = message.ClientId;
+						Global.isHost = true;
+						
+						preloadMainGame();
+				        GameEngine.getInstance().attach(new LoadingView((GameView) new MainGameView2Online()));
+				        GameEngine.getInstance().detach(this);
+					}
 					break;
 			}
 		}
